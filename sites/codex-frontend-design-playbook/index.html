@@ -159,6 +159,7 @@
 
     <h3>A0. Skill 下载/复制地址索引</h3>
     <p>Codex Skill 通常就是一个包含 <code>SKILL.md</code> 的目录。外部用户安装前，可以先看 <a href="https://developers.openai.com/codex/skills">OpenAI Codex Skills 文档</a> 和 <a href="https://github.com/openai/skills">OpenAI Skills Catalog</a>。</p>
+    <p>本仓库还提供一组脱敏后的公开参考文件：<a href="../../docs/skill-reference/index.html"><code>docs/skill-reference/</code></a>。这些文件不是本机 Skill 原文，而是可公开复用的行为说明、输入输出、工作流和验收标准。</p>
     <table>
       <thead><tr><th>Skill</th><th>公开来源/下载地址</th><th>推荐安装路径</th><th>说明</th></tr></thead>
       <tbody>
@@ -172,9 +173,9 @@
         <tr><td><code>shadcn-layouts</code></td><td>未确认公开仓库；可按下方行为说明复现</td><td><code>~/.agents/skills/shadcn-layouts/</code></td><td>shadcn/Tailwind 布局稳定性</td></tr>
         <tr><td><code>landing-page-design</code></td><td><a href="https://raw.githubusercontent.com/inference-sh/skills/refs/heads/main/cli-install.md">inference.sh skills install</a></td><td><code>~/.agents/skills/landing-page-design/</code></td><td>Skill 内部标注依赖 inference.sh CLI</td></tr>
         <tr><td><code>claude-page-review</code></td><td>未确认公开仓库；可按下方行为说明复现</td><td><code>~/.codex/skills/claude-page-review/</code></td><td>Claude 二次页面审查</td></tr>
-        <tr><td><code>remote-codex-worker</code></td><td>未确认公开仓库；仅适合有远程 Codex worker 的团队</td><td><code>~/.codex/skills/remote-codex-worker/</code></td><td>把指定远程项目任务交给远端 Codex worker</td></tr>
       </tbody>
     </table>
+    <p>对应的公开参考文件：<a href="../../docs/skill-reference/interactive-portfolio.md">interactive-portfolio</a>、<a href="../../docs/skill-reference/frontend-design.md">frontend-design</a>、<a href="../../docs/skill-reference/design-taste-frontend.md">design-taste-frontend</a>、<a href="../../docs/skill-reference/design-shotgun.md">design-shotgun</a>、<a href="../../docs/skill-reference/design-consultation.md">design-consultation</a>、<a href="../../docs/skill-reference/tailwind-design-system.md">tailwind-design-system</a>、<a href="../../docs/skill-reference/shadcn-layouts.md">shadcn-layouts</a>、<a href="../../docs/skill-reference/frontend-css-patterns.md">frontend-css-patterns</a>、<a href="../../docs/skill-reference/landing-page-design.md">landing-page-design</a>、<a href="../../docs/skill-reference/claude-page-review.md">claude-page-review</a>。</p>
     <p>没有公开源码的 Skill 不应该只写“本地可用”。读者至少需要知道它解决什么问题、接收什么输入、会产出什么结果。下面是这次实验用到的行为摘要；即使没有这些 Skill 的源码，也可以把对应描述复制给 Codex，让它按同样流程执行。</p>
     <table>
       <thead><tr><th>Skill</th><th>解决的问题</th><th>典型输入</th><th>典型产出</th></tr></thead>
@@ -189,7 +190,6 @@
         <tr><td><code>frontend-css-patterns</code></td><td>提供框架无关的 CSS 写法，覆盖字体、色彩、动效、背景纹理和空间组合。</td><td>设计 token、页面气质、CSS 或 Tailwind 约束。</td><td>CSS custom properties、排版尺度、色彩主题、动画和视觉细节模式。</td></tr>
         <tr><td><code>landing-page-design</code></td><td>优化 landing page 的首屏、CTA、信任证据和转化路径。</td><td>产品价值、目标用户、转化目标、社会证明、hero image 需求。</td><td>5 秒首屏公式、标题/副标题、CTA、社会证明和 section 顺序。</td></tr>
         <tr><td><code>claude-page-review</code></td><td>发布前用第二模型审查用户可见页面，重点看文案、层级、真实性和隐私。</td><td>页面链接或源码、业务目标、不能暴露的信息、允许修改范围。</td><td>页面问题清单、改稿 brief、二次审查建议、发布前检查结果。</td></tr>
-        <tr><td><code>remote-codex-worker</code></td><td>把任务交给远端 Codex worker，在远程项目目录内继续开发、验证、提交。</td><td>远程项目标识、任务描述、权限边界、期望验证方式。</td><td>远程会话状态、执行结果、提交/PR/部署反馈。</td></tr>
       </tbody>
     </table>
     <pre><code># 复制某个 Skill 到对方 Codex 技能目录

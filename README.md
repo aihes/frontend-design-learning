@@ -24,7 +24,10 @@ index.html
 4. `sites/frontend-design-showcase/index.html`  
    前端设计原则展示页：用于观察页面节奏、排版、视觉密度和响应式策略。
 
-5. `sites/original-candidate-site/index.html`  
+5. `docs/skill-reference/index.html`  
+   脱敏后的 Skill 公开参考入口：解释每个前端设计 Skill 的适用场景、输入、输出、工作流和验收标准。
+
+6. `sites/original-candidate-site/index.html`  
    原始候选人站点：用于和后续变体对比。
 
 ## 内容边界
