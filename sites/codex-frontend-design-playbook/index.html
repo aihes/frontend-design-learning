@@ -165,14 +165,31 @@
         <tr><td><code>interactive-portfolio</code></td><td><a href="https://github.com/vibeforge1111/vibeship-spawner-skills/tree/main/maker/interactive-portfolio">VibeShip Spawner Skills</a></td><td><code>~/.agents/skills/interactive-portfolio/</code></td><td>适合简历站/作品集叙事</td></tr>
         <tr><td><code>design-shotgun</code></td><td><a href="https://github.com/garrytan/gstack/tree/main/design-shotgun">gstack design-shotgun</a></td><td><code>~/.agents/skills/gstack/design-shotgun/</code></td><td>多方向视觉探索</td></tr>
         <tr><td><code>design-consultation</code></td><td><a href="https://github.com/garrytan/gstack/tree/main/design-consultation">gstack design-consultation</a></td><td><code>~/.agents/skills/gstack/design-consultation/</code></td><td>设计系统和品牌方向</td></tr>
-        <tr><td><code>frontend-design</code></td><td>未确认公开仓库；可从自己的技能目录安装</td><td><code>~/.agents/skills/frontend-design/</code></td><td>高质量前端页面生成</td></tr>
-        <tr><td><code>design-taste-frontend</code></td><td>未确认公开仓库；可从自己的技能目录安装</td><td><code>~/.agents/skills/design-taste-frontend/</code></td><td>反 AI 味和审美校准</td></tr>
-        <tr><td><code>frontend-css-patterns</code></td><td>未确认公开仓库；可从自己的技能目录安装</td><td><code>~/.agents/skills/frontend-css-patterns/</code></td><td>CSS 视觉模式</td></tr>
-        <tr><td><code>tailwind-design-system</code></td><td>未确认公开仓库；可从自己的技能目录安装</td><td><code>~/.agents/skills/tailwind-design-system/</code></td><td>token 和组件系统</td></tr>
-        <tr><td><code>shadcn-layouts</code></td><td>未确认公开仓库；可从自己的技能目录安装</td><td><code>~/.agents/skills/shadcn-layouts/</code></td><td>shadcn/Tailwind 布局稳定性</td></tr>
+        <tr><td><code>frontend-design</code></td><td>未确认公开仓库；可按下方行为说明复现</td><td><code>~/.agents/skills/frontend-design/</code></td><td>高质量前端页面生成</td></tr>
+        <tr><td><code>design-taste-frontend</code></td><td>未确认公开仓库；可按下方行为说明复现</td><td><code>~/.agents/skills/design-taste-frontend/</code></td><td>反 AI 味和审美校准</td></tr>
+        <tr><td><code>frontend-css-patterns</code></td><td>未确认公开仓库；可按下方行为说明复现</td><td><code>~/.agents/skills/frontend-css-patterns/</code></td><td>CSS 视觉模式</td></tr>
+        <tr><td><code>tailwind-design-system</code></td><td>未确认公开仓库；可按下方行为说明复现</td><td><code>~/.agents/skills/tailwind-design-system/</code></td><td>token 和组件系统</td></tr>
+        <tr><td><code>shadcn-layouts</code></td><td>未确认公开仓库；可按下方行为说明复现</td><td><code>~/.agents/skills/shadcn-layouts/</code></td><td>shadcn/Tailwind 布局稳定性</td></tr>
         <tr><td><code>landing-page-design</code></td><td><a href="https://raw.githubusercontent.com/inference-sh/skills/refs/heads/main/cli-install.md">inference.sh skills install</a></td><td><code>~/.agents/skills/landing-page-design/</code></td><td>Skill 内部标注依赖 inference.sh CLI</td></tr>
-        <tr><td><code>claude-page-review</code></td><td>未确认公开仓库；可从自己的技能目录安装</td><td><code>~/.codex/skills/claude-page-review/</code></td><td>Claude 二次页面审查</td></tr>
-        <tr><td><code>remote-codex-worker</code></td><td>未确认公开仓库；可从自己的技能目录安装</td><td><code>~/.codex/skills/remote-codex-worker/</code></td><td>把 Offer-Compass 任务交给 agent-remote</td></tr>
+        <tr><td><code>claude-page-review</code></td><td>未确认公开仓库；可按下方行为说明复现</td><td><code>~/.codex/skills/claude-page-review/</code></td><td>Claude 二次页面审查</td></tr>
+        <tr><td><code>remote-codex-worker</code></td><td>未确认公开仓库；仅适合有远程 Codex worker 的团队</td><td><code>~/.codex/skills/remote-codex-worker/</code></td><td>把指定远程项目任务交给远端 Codex worker</td></tr>
+      </tbody>
+    </table>
+    <p>没有公开源码的 Skill 不应该只写“本地可用”。读者至少需要知道它解决什么问题、接收什么输入、会产出什么结果。下面是这次实验用到的行为摘要；即使没有这些 Skill 的源码，也可以把对应描述复制给 Codex，让它按同样流程执行。</p>
+    <table>
+      <thead><tr><th>Skill</th><th>解决的问题</th><th>典型输入</th><th>典型产出</th></tr></thead>
+      <tbody>
+        <tr><td><code>interactive-portfolio</code></td><td>把简历从经历顺序改成机会转化页，确保 30 秒内看懂是谁、做什么、最强证明和联系方式。</td><td>简历、目标岗位、作品链接、隐私边界。</td><td>候选人定位、首屏叙事、项目证据排序、联系 CTA。</td></tr>
+        <tr><td><code>frontend-design</code></td><td>逼模型先选明确视觉方向，再实现有记忆点的页面，避免通用模板感。</td><td>页面目标、受众、品牌气质、技术栈、参考图。</td><td>独特视觉方向、字体/色彩/空间策略、可运行前端代码。</td></tr>
+        <tr><td><code>design-taste-frontend</code></td><td>用规则反向校准 LLM 常见偏差，如紫蓝渐变、三列卡片、默认字体、静态成功态。</td><td>已有页面或待实现页面、期望密度、动效强度、技术约束。</td><td>审美修正清单、组件/布局规则、响应式和交互状态要求。</td></tr>
+        <tr><td><code>design-shotgun</code></td><td>在视觉方向不确定时一次生成多套差异明显的方案，先选方向再深化。</td><td>产品/页面 brief、目标用户、可接受和不可接受的风格。</td><td>3-5 个视觉方向、对比板、反馈问题、下一轮收敛建议。</td></tr>
+        <tr><td><code>design-consultation</code></td><td>为新项目建立设计系统源头，而不是边写边散落颜色和组件规则。</td><td>产品定位、竞品、品牌关键词、页面类型、已有约束。</td><td><code>DESIGN.md</code>、字体/颜色/间距/动效系统、预览页面。</td></tr>
+        <tr><td><code>tailwind-design-system</code></td><td>把视觉方向落成 Tailwind/shadcn 可复用 token 和组件 primitive。</td><td>设计方向、Tailwind 版本、shadcn 使用范围、主题需求。</td><td>CSS 变量、Tailwind theme、封装后的 Button/Card/Input 等基础组件。</td></tr>
+        <tr><td><code>shadcn-layouts</code></td><td>修正 app shell、flex/grid、高度链和滚动容器问题，让布局稳定。</td><td>shadcn/Tailwind 页面、滚动问题、全屏布局或 dashboard 结构。</td><td>高度链规则、<code>min-h-0</code>/<code>min-w-0</code> 修复、稳定的 shell/grid 布局。</td></tr>
+        <tr><td><code>frontend-css-patterns</code></td><td>提供框架无关的 CSS 写法，覆盖字体、色彩、动效、背景纹理和空间组合。</td><td>设计 token、页面气质、CSS 或 Tailwind 约束。</td><td>CSS custom properties、排版尺度、色彩主题、动画和视觉细节模式。</td></tr>
+        <tr><td><code>landing-page-design</code></td><td>优化 landing page 的首屏、CTA、信任证据和转化路径。</td><td>产品价值、目标用户、转化目标、社会证明、hero image 需求。</td><td>5 秒首屏公式、标题/副标题、CTA、社会证明和 section 顺序。</td></tr>
+        <tr><td><code>claude-page-review</code></td><td>发布前用第二模型审查用户可见页面，重点看文案、层级、真实性和隐私。</td><td>页面链接或源码、业务目标、不能暴露的信息、允许修改范围。</td><td>页面问题清单、改稿 brief、二次审查建议、发布前检查结果。</td></tr>
+        <tr><td><code>remote-codex-worker</code></td><td>把任务交给远端 Codex worker，在远程项目目录内继续开发、验证、提交。</td><td>远程项目标识、任务描述、权限边界、期望验证方式。</td><td>远程会话状态、执行结果、提交/PR/部署反馈。</td></tr>
       </tbody>
     </table>
     <pre><code># 复制某个 Skill 到对方 Codex 技能目录
