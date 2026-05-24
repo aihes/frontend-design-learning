@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>余梓维 | 暗色极简版</title>
+  <meta name="description" content="余梓维的产品、AI 与产品运营实习方向个人主页。">
+  <style>
+:root{
+  --bg:#0a0a0b;
+  --surface:#131315;
+  --surface2:#1a1a1e;
+  --border:#27272c;
+  --ink:#e8e8ec;
+  --ink2:#a0a0aa;
+  --ink3:#62626c;
+  --accent:#6ee7b7;
+  --accent2:#34d399;
+  --accent-dim:rgba(110,231,183,.08);
+  --accent-glow:rgba(110,231,183,.15);
+  --warm:#fbbf24;
+  --warm-dim:rgba(251,191,36,.08);
+  --radius:12px;
+  --mono:"SF Mono","SFMono-Regular",ui-monospace,Menlo,monospace;
+  --sans:"Inter","Avenir Next","PingFang SC","Microsoft YaHei",sans-serif
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.7;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+::selection{background:var(--accent2);color:var(--bg)}
+
+/* === Layout === */
+.shell{width:min(1080px,calc(100vw - 48px));margin:0 auto}
+
+/* === Nav === */
+.nav{
+  position:sticky;top:0;z-index:50;
+  height:56px;display:flex;align-items:center;justify-content:space-between;
+  background:rgba(10,10,11,.82);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  font-size:13px;font-weight:600
+}
+.nav-name{display:flex;align-items:center;gap:8px;font-weight:700}
+.nav-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.nav-links{display:flex;gap:24px;color:var(--ink2);font-size:13px}
+.nav-links a{transition:color .2s}
+.nav-links a:hover{color:var(--accent)}
+
+/* === Hero === */
+.hero{padding:120px 0 80px;max-width:720px}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font:600 12px/1 var(--mono);color:var(--accent);
+  letter-spacing:.06em;text-transform:uppercase;
+  margin-bottom:24px
+}
+.hero-tag::before{content:"";width:16px;height:1px;background:var(--accent)}
+.hero h1{
+  font-size:clamp(40px,6.5vw,72px);
+  line-height:1.08;letter-spacing:-.03em;
+  font-weight:700;margin-bottom:28px
+}
+.hero h1 em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--accent),var(--warm));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text
+}
+.hero-body{font-size:17px;color:var(--ink2);max-width:580px;margin-bottom:40px}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  height:44px;padding:0 20px;
+  border-radius:999px;font-weight:600;font-size:14px;
+  transition:all .25s;cursor:pointer;border:none
+}
+.btn-primary{background:var(--accent);color:var(--bg)}
+.btn-primary:hover{background:var(--accent2);transform:translateY(-1px);box-shadow:0 8px 32px var(--accent-glow)}
+.btn-ghost{background:transparent;color:var(--ink2);border:1px solid var(--border)}
+.btn-ghost:hover{color:var(--ink);border-color:var(--ink3)}
+
+/* === Stats === */
+.stats{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  background:var(--border);border:1px solid var(--border);
+  border-radius:var(--radius);overflow:hidden;
+  margin:0 0 80px
+}
+.stat{background:var(--surface);padding:28px 24px;transition:background .3s}
+.stat:hover{background:var(--surface2)}
+.stat-value{font-size:32px;font-weight:700;color:var(--accent);letter-spacing:-.02em}
+.stat-label{font-size:13px;color:var(--ink3);margin-top:4px}
+
+/* === Section === */
+.section{padding:80px 0;border-top:1px solid var(--border)}
+.section-label{
+  font:600 12px/1 var(--mono);color:var(--warm);
+  letter-spacing:.06em;text-transform:uppercase;
+  margin-bottom:12px
+}
+.section-title{
+  font-size:clamp(28px,4vw,44px);
+  line-height:1.1;letter-spacing:-.02em;
+  font-weight:700;margin-bottom:16px;max-width:640px
+}
+.section-desc{color:var(--ink2);max-width:560px;font-size:16px;margin-bottom:48px}
+
+/* === Fit Cards === */
+.fit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.fit-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:32px 28px;
+  transition:all .3s;position:relative;overflow:hidden
+}
+.fit-card::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--accent),transparent);
+  opacity:0;transition:opacity .3s
+}
+.fit-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.fit-card:hover::before{opacity:1}
+.fit-card h3{font-size:20px;font-weight:700;margin-bottom:10px}
+.fit-card p{font-size:14px;color:var(--ink2);line-height:1.6}
+.fit-num{
+  position:absolute;right:20px;bottom:12px;
+  font:700 64px/1 var(--sans);color:var(--surface2);
+  pointer-events:none;user-select:none
+}
+
+/* === Projects === */
+.projects{display:grid;gap:2px;background:var(--border);border-radius:var(--radius);overflow:hidden;border:1px solid var(--border)}
+.project{background:var(--bg);transition:background .3s}
+.project:hover{background:var(--surface)}
+.project-head{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  padding:32px 32px 0;gap:20px;flex-wrap:wrap
+}
+.project-info h3{font-size:24px;font-weight:700;margin-bottom:4px}
+.project-meta{font-size:13px;color:var(--ink3)}
+.project-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.project-tags span{
+  font:600 11px var(--mono);
+  padding:4px 10px;border-radius:6px;
+  background:var(--accent-dim);color:var(--accent);
+  letter-spacing:.02em
+}
+.project-evidence{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  margin-top:24px
+}
+.ev{padding:24px 28px;border-top:1px solid var(--border)}
+.ev:not(:last-child){border-right:1px solid var(--border)}
+.ev-label{
+  font:700 11px/1 var(--mono);color:var(--warm);
+  letter-spacing:.08em;text-transform:uppercase;
+  margin-bottom:8px
+}
+.ev p{font-size:13px;color:var(--ink2);line-height:1.6}
+
+/* === Experience === */
+.exp-list{display:grid;gap:0}
+.exp-row{
+  display:grid;grid-template-columns:280px 1fr;gap:32px;
+  padding:28px 0;border-bottom:1px solid var(--border);
+  align-items:start
+}
+.exp-row:last-child{border-bottom:none}
+.exp-org{font-weight:700;font-size:16px;margin-bottom:2px}
+.exp-time{font-size:13px;color:var(--ink3)}
+.exp-detail{font-size:14px;color:var(--ink2);line-height:1.7}
+
+/* === Skills === */
+.skill-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.skill-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:28px 24px;
+  transition:border-color .3s
+}
+.skill-card:hover{border-color:var(--ink3)}
+.skill-card h3{
+  font-size:15px;font-weight:700;margin-bottom:10px;
+  padding-bottom:10px;border-bottom:1px solid var(--border)
+}
+.skill-card p{font-size:13px;color:var(--ink2);line-height:1.6}
+.skill-icon{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:32px;height:32px;border-radius:8px;
+  background:var(--accent-dim);color:var(--accent);
+  font-size:14px;margin-bottom:14px
+}
+
+/* === CTA === */
+.cta{
+  padding:96px 0;text-align:center;
+  border-top:1px solid var(--border)
+}
+.cta-title{
+  font-size:clamp(28px,4.5vw,52px);
+  line-height:1.1;letter-spacing:-.02em;
+  font-weight:700;max-width:700px;margin:0 auto 16px
+}
+.cta-subtitle{color:var(--ink2);margin-bottom:36px;font-size:16px}
+.cta .btn-primary{font-size:15px;height:50px;padding:0 32px}
+
+/* === Footer === */
+.footer{
+  padding:24px 0;border-top:1px solid var(--border);
+  font-size:12px;color:var(--ink3)
+}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+
+/* === Responsive === */
+@media(max-width:900px){
+  .fit-grid,.skill-grid{grid-template-columns:1fr 1fr}
+  .project-evidence{grid-template-columns:1fr 1fr}
+  .ev:not(:last-child){border-right:none;border-bottom:1px solid var(--border)}
+  .stats{grid-template-columns:1fr 1fr}
+  .exp-row{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  .shell{width:calc(100vw - 24px)}
+  .nav{height:auto;min-height:56px;flex-wrap:wrap;padding:12px 0;gap:8px}
+  .nav-links{width:100%;gap:16px}
+  .hero{padding:64px 0 48px}
+  .hero h1{font-size:36px}
+  .stats{grid-template-columns:1fr 1fr}
+  .fit-grid,.skill-grid{grid-template-columns:1fr}
+  .project-head{flex-direction:column}
+  .project-evidence{grid-template-columns:1fr}
+  .ev{border-right:none!important;border-bottom:1px solid var(--border)}
+  .ev:last-child{border-bottom:none}
+  .section{padding:56px 0}
+  .cta{padding:64px 0}
+  .footer-inner{flex-direction:column;align-items:flex-start}
+}
+  </style>
+</head>
+<body>
+
+<nav class="shell nav">
+  <div class="nav-name"><span class="nav-dot"></span>余梓维</div>
+  <div class="nav-links">
+    <a href="#fit">方向</a>
+    <a href="#cases">项目</a>
+    <a href="#background">背景</a>
+    <a href="#stack">能力</a>
+  </div>
+</nav>
+
+<main>
+
+<section class="shell hero">
+  <p class="hero-tag">AI Product &middot; Product Ops &middot; Growth</p>
+  <h1>能把模糊需求拆成<em>可上线产品</em>的实习生。</h1>
+  <p class="hero-body">做过 AI 饮食推荐小程序、游戏工具平台和企业伦理评分产品。强项不是把简历包装得更满，而是把模糊需求拆成可上线的产品结构，并用数据和用户反馈继续修正。</p>
+  <div class="hero-actions">
+    <a class="btn btn-primary" href="#contact">联系余梓维</a>
+    <a class="btn btn-ghost" href="#cases">查看项目证据</a>
+  </div>
+</section>
+
+<section class="shell">
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-value">2</div>
+      <div class="stat-label">独立上线产品</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">4 天</div>
+      <div class="stat-label">dfgqm.com 双端上线</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">2,280+</div>
+      <div class="stat-label">上线首月独立访客</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">200+</div>
+      <div class="stat-label">上线首月 UGC</div>
+    </div>
+  </div>
+</section>
+
+<section id="fit" class="shell section">
+  <p class="section-label">Fit</p>
+  <h2 class="section-title">面试官不需要再帮他总结卖点。</h2>
+  <p class="section-desc">页面按招聘方的判断路径组织：方向是否匹配、证据是否真实、项目是否说明产品能力。</p>
+  <div class="fit-grid">
+    <article class="fit-card">
+      <span class="fit-num">01</span>
+      <h3>AI 产品</h3>
+      <p>把"吃什么""怎么配枪"这类开放问题拆成输入、约束、推荐和反馈路径。</p>
+    </article>
+    <article class="fit-card">
+      <span class="fit-num">02</span>
+      <h3>产品运营</h3>
+      <p>能从内容类型、发布时间、互动数据和 UGC 行为里做运营复盘。</p>
+    </article>
+    <article class="fit-card">
+      <span class="fit-num">03</span>
+      <h3>增长实验</h3>
+      <p>能用 Next.js、Supabase、微信云开发、AI API 快速验证需求密度。</p>
+    </article>
+  </div>
+</section>
+
+<section id="cases" class="shell section">
+  <p class="section-label">Case files</p>
+  <h2 class="section-title">项目按证据强度展开。</h2>
+  <p class="section-desc">每个项目只保留招聘决策需要的信息：用户问题、产品判断、落地动作和结果信号。</p>
+  <div class="projects">
+    <article class="project">
+      <div class="project-head">
+        <div class="project-info">
+          <h3>今食喵</h3>
+          <p class="project-meta">AI 饮食推荐微信小程序 &middot; 独立开发 &middot; 2026.05 至今</p>
+          <div class="project-tags">
+            <span>AI 决策工具</span><span>微信云开发</span><span>DeepSeek API</span><span>地图检索</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-evidence">
+        <div class="ev"><div class="ev-label">Problem</div><p>外卖和外出就餐的痛点不是信息不足，而是选择过载，用户需要决策辅助。</p></div>
+        <div class="ev"><div class="ev-label">Product call</div><p>把输入收敛为 4 个关键维度，规划 6 大推荐场景，结果以菜品、真实餐厅和情绪化文案呈现。</p></div>
+        <div class="ev"><div class="ev-label">Execution</div><p>接入腾讯地图、Google Places 和 OSM，Prompt 约束 AI 只能从真实店铺池选店。</p></div>
+        <div class="ev"><div class="ev-label">Signal</div><p>1 周完成产品设计、开发、安全加固与发布，8 个云函数模块支持 8 类菜系和海外检索。</p></div>
+      </div>
+    </article>
+    <article class="project">
+      <div class="project-head">
+        <div class="project-info">
+          <h3>dfgqm.com</h3>
+          <p class="project-meta">国际服改枪码查询与分享平台 &middot; 独立开发 &middot; 2026.04 至今</p>
+          <div class="project-tags">
+            <span>Next.js</span><span>Supabase</span><span>UGC</span><span>三语切换</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-evidence">
+        <div class="ev"><div class="ev-label">Problem</div><p>《三角洲行动》国服和国际服改枪码不互通，海外玩家需要可检索、可分享的工具。</p></div>
+        <div class="ev"><div class="ev-label">Product call</div><p>设计 S+/S/A+/A 强度分级、多维标签和组合筛选，把分散经验变成结构化工具。</p></div>
+        <div class="ev"><div class="ev-label">Execution</div><p>实现双登录、UGC 上传、三语切换；Cloudflare R2 管理 62+ 武器图片。</p></div>
+        <div class="ev"><div class="ev-label">Signal</div><p>4 天上线双端，PageSpeed 双端 100 分；上线一个月 2,280+ 独立访客、3,170+ 浏览、200+ UGC。</p></div>
+      </div>
+    </article>
+    <article class="project">
+      <div class="project-head">
+        <div class="project-info">
+          <h3>Ethica</h3>
+          <p class="project-meta">企业伦理评分应用 &middot; 产品项目成员 &middot; 2025.09 - 2025.12</p>
+          <div class="project-tags">
+            <span>ESG</span><span>评分模型</span><span>商业模式</span><span>Figma Site</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-evidence">
+        <div class="ev"><div class="ev-label">Problem</div><p>ESG 消费者和投资者很难快速判断企业伦理表现，需要可解释、可比较的评分产品。</p></div>
+        <div class="ev"><div class="ev-label">Product call</div><p>补充 20+ 评估指标，将四大维度落实为可操作的评分框架。</p></div>
+        <div class="ev"><div class="ev-label">Execution</div><p>完成用户细分、订阅定价和商业模式画布，梳理三款竞品确定差异化定位。</p></div>
+        <div class="ev"><div class="ev-label">Signal</div><p>用 Figma Site 搭建 4 页 Demo，接入 Supabase 和 Groq API，以 Barilla 完成评分验证。</p></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="background" class="shell section">
+  <p class="section-label">Background</p>
+  <h2 class="section-title">教育和实习经历作为能力证据的补强。</h2>
+  <div class="exp-list">
+    <article class="exp-row">
+      <div><div class="exp-org">深圳华泰证券</div><div class="exp-time">营业部实习生 &middot; 2025.07 - 2025.08</div></div>
+      <p class="exp-detail">拆解 15 款金融产品的收益、申赎和风险因素；从收益率、流动性、门槛维度对比银行活期和余额宝，帮助顾问讲清产品差异。</p>
+    </article>
+    <article class="exp-row">
+      <div><div class="exp-org">深圳玩美假期</div><div class="exp-time">市场与宣传实习生 &middot; 2022.07 - 2022.08</div></div>
+      <p class="exp-detail">对比内容类型和发布时间的互动表现，调整标题、封面和发布节奏；完成 90+ 篇图文和短视频文案并形成运营复盘。</p>
+    </article>
+    <article class="exp-row">
+      <div><div class="exp-org">明尼苏达大学双城分校</div><div class="exp-time">创业管理本科，辅修金融 &middot; 2023.09 - 2027.05</div></div>
+      <p class="exp-detail">GPA 3.80 / 4.00；商学院院长名单 2 次，文理学院院长名单 1 次；主修创业管理、战略管理、可持续供应链与运营。</p>
+    </article>
+  </div>
+</section>
+
+<section id="stack" class="shell section">
+  <p class="section-label">Operating stack</p>
+  <h2 class="section-title">能力栈按交付路径组织。</h2>
+  <p class="section-desc">如果进团队，他可以在哪些环节直接开始贡献。</p>
+  <div class="skill-grid">
+    <article class="skill-card">
+      <div class="skill-icon">&#9678;</div>
+      <h3>发现问题</h3>
+      <p>用户细分、需求密度判断、竞品拆解、内容互动数据复盘。</p>
+    </article>
+    <article class="skill-card">
+      <div class="skill-icon">&#9670;</div>
+      <h3>定义产品</h3>
+      <p>信息架构、输入约束、评分模型、商业模式画布、Figma 原型。</p>
+    </article>
+    <article class="skill-card">
+      <div class="skill-icon">&#9881;</div>
+      <h3>做出版本</h3>
+      <p>Next.js、Supabase、微信云开发、地图服务、AI API 接入。</p>
+    </article>
+    <article class="skill-card">
+      <div class="skill-icon">&#8593;</div>
+      <h3>推动增长</h3>
+      <p>社媒内容运营、UGC 机制、访问量复盘、中英双语表达。</p>
+    </article>
+  </div>
+</section>
+
+<section class="cta shell">
+  <h2 class="cta-title">如果团队需要一个能从 0 到 1 推进 AI 产品原型的人，可以先聊 20 分钟。</h2>
+  <p class="cta-subtitle">公开页面不暴露联系方式</p>
+  <a class="btn btn-primary" href="#contact">联系余梓维</a>
+</section>
+
+</main>
+
+<footer class="shell footer">
+  <div class="footer-inner">
+    <span>联系入口</span>
+    <span>Portfolio &middot; 2026</span>
+  </div>
+</footer>
+
+</body>
+</html>

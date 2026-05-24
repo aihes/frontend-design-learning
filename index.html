@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Frontend Design Learning</title>
+  <link rel="icon" href="data:,">
+  <style>
+    :root{
+      --bg:#f6f1e8;
+      --paper:#fffaf1;
+      --ink:#171512;
+      --muted:#655f55;
+      --line:#d8cec0;
+      --accent:#9f3f2c;
+      --green:#1f6a61;
+      --dark:#15130f;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:"Avenir Next","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.68}
+    a{color:inherit}
+    .hero{background:var(--dark);color:#fff7ea}
+    .wrap{width:min(1180px,calc(100vw - 40px));margin:0 auto}
+    .hero .wrap{padding:76px 0 58px}
+    .eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:#e9ae62;font-weight:900}
+    h1{max-width:980px;margin:18px 0 22px;font-size:clamp(42px,7vw,88px);line-height:1;letter-spacing:0}
+    .lead{max-width:860px;margin:0;color:#d7c9b6;font-size:clamp(18px,2.1vw,24px)}
+    .hero-actions{display:flex;gap:14px;margin-top:28px;flex-wrap:wrap}
+    .hero-btn{display:inline-flex;align-items:center;min-height:52px;padding:0 28px;font-size:16px;font-weight:900;text-decoration:none;letter-spacing:.02em;transition:transform .2s,box-shadow .2s}
+    .hero-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.3)}
+    .hero-btn.codex{background:#e6ad5b;color:#181512}
+    .hero-btn.claude{background:#d97706;color:#fff7ea}
+    main{padding:42px 0 76px}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:28px}
+    .card{min-height:230px;display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--line);padding:24px}
+    .card h2{font-size:28px;line-height:1.12;margin:0 0 10px}
+    .card p{color:var(--muted);margin:0 0 22px}
+    .meta{font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:var(--accent);margin-bottom:12px}
+    .button{margin-top:auto;display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 16px;background:var(--dark);color:#fff7ea;text-decoration:none;font-weight:900}
+    .button.secondary{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+    .principles{padding-top:48px}
+    .principles h2{font-size:clamp(30px,4vw,50px);line-height:1.1;margin:0 0 6px}
+    .principles .lead{color:var(--muted);font-size:17px;margin:0 0 24px}
+    .principle-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .principle-item{background:var(--paper);border:1px solid var(--line);padding:22px;border-top:4px solid var(--accent);transition:transform .2s,box-shadow .2s}
+    .principle-item:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(21,19,15,.1)}
+    .principle-item .num{font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+    .principle-item h3{font-size:19px;line-height:1.25;margin:0 0 8px}
+    .principle-item p{color:var(--muted);font-size:14px;margin:0;line-height:1.6}
+    .principle-item.green{border-top-color:var(--green)}
+    .principle-item.green .num{color:var(--green)}
+    .principle-item.dark{border-top-color:var(--dark)}
+    .principle-item.dark .num{color:var(--dark)}
+    .section{padding-top:42px}
+    .section h2{font-size:clamp(30px,4vw,50px);line-height:1.1;margin:0 0 14px}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+    .step{border-top:3px solid var(--green);background:rgba(255,250,241,.62);padding:18px}
+    .step b{display:block;font-size:18px;margin-bottom:8px}
+    .step span{color:var(--muted)}
+    .footer{margin-top:54px;border-top:1px solid var(--line);padding-top:22px;color:var(--muted);font-size:14px}
+    code{background:#ebe0d2;padding:2px 6px}
+    @media(max-width:760px){
+      .wrap{width:calc(100vw - 24px)}
+      .grid,.steps,.principle-grid{grid-template-columns:1fr}
+      .hero .wrap{padding:54px 0 44px}
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Frontend design learning repo</div>
+      <h1>Codex vs Claude：谁的前端更好看？</h1>
+      <p class="lead">对比两个 AI 做前端设计的方法论差异——Codex 靠 Skill 约束，Claude 靠设计系统。用真实页面对比，看哪个方法产出更好的设计。</p>
+      <div class="hero-actions">
+        <a class="hero-btn codex" href="./sites/codex-frontend-design-playbook/index.html">Codex 设计手册 &rarr;</a>
+        <a class="hero-btn claude" href="./claude/index.html">Claude 设计原则 &rarr;</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="grid" aria-label="学习入口">
+      <article class="card">
+        <div class="meta">Playbook</div>
+        <h2>Codex 前端设计总手册</h2>
+        <p>从 Skill 原理、外部站点、参考研究到重新开发，完整解释如何避免 AI 前端模板味。</p>
+        <a class="button" href="./sites/codex-frontend-design-playbook/index.html">打开总手册</a>
+      </article>
+      <article class="card">
+        <div class="meta">Skill variants</div>
+        <h2>同一内容的多套设计输出</h2>
+        <p>对比 interactive-portfolio、design-shotgun、tailwind-design-system、shadcn-layouts 等方法的差异。</p>
+        <a class="button" href="./sites/skill-variants/index.html">查看 Skill 对比</a>
+      </article>
+      <article class="card">
+        <div class="meta">Design tools</div>
+        <h2>外部设计工具 Benchmark</h2>
+        <p>整理 Variant、Relume、Godly、Land-book、Mobbin 等工具和参考库的截图与用途。</p>
+        <a class="button" href="./sites/design-tool-benchmark/index.html">查看工具 Benchmark</a>
+      </article>
+      <article class="card">
+        <div class="meta">Showcase</div>
+        <h2>前端设计原则展示页</h2>
+        <p>用于观察页面节奏、排版密度、视觉层级和响应式策略，适合做设计复盘。</p>
+        <a class="button" href="./sites/frontend-design-showcase/index.html">打开展示页</a>
+      </article>
+      <article class="card">
+        <div class="meta">Original</div>
+        <h2>原始候选人站点</h2>
+        <p>作为对照样本，方便观察后续 Skill 变体如何重组叙事和视觉表达。</p>
+        <a class="button secondary" href="./sites/original-candidate-site/index.html">查看原始页面</a>
+      </article>
+      <article class="card">
+        <div class="meta">Claude Design</div>
+        <h2>Claude 前端设计原则</h2>
+        <p>Claude 的系统化前端设计方法：排版层级、色彩 token、间距节奏、动效意图——页面本身就是证明。</p>
+        <a class="button" href="./claude/index.html">打开 Claude 设计页</a>
+      </article>
+      <article class="card">
+        <div class="meta">Docs</div>
+        <h2>设计原则 Markdown</h2>
+        <p>保留部分文本材料，方便后续改写成博客、课程或 GitHub README。</p>
+        <a class="button secondary" href="./docs/frontend-design-principles.md">打开文档</a>
+      </article>
+    </section>
+
+    <section class="principles">
+      <h2>前端设计核心原则</h2>
+      <p class="lead">无论用 Codex 还是 Claude，好前端都遵循这些底层规律。</p>
+      <div class="principle-grid">
+        <div class="principle-item">
+          <div class="num">01</div>
+          <h3>视觉层级即信息架构</h3>
+          <p>用户扫页面的顺序就是你的优先级列表。字号、粗细、间距每一级变化都在说"先看这里，再看那里"。</p>
+        </div>
+        <div class="principle-item green">
+          <div class="num">02</div>
+          <h3>留白是设计，不是空缺</h3>
+          <p>好的留白创造呼吸感和节奏。不是"还没填满的地方"，而是主动选择——让重要的东西被看见。</p>
+        </div>
+        <div class="principle-item dark">
+          <div class="num">03</div>
+          <h3>系统先于页面</h3>
+          <p>先建色彩 token、字体比例、间距变量，再用这些积木拼页面。没有系统就没有一致性。</p>
+        </div>
+        <div class="principle-item">
+          <div class="num">04</div>
+          <h3>色彩不是感觉，是系统</h3>
+          <p>一个页面最多 1 个主强调色 + 2-3 个语义色。暖白底不纯白，暖黑字不纯黑——温度比亮度重要。</p>
+        </div>
+        <div class="principle-item green">
+          <div class="num">05</div>
+          <h3>间距是看不见的网格</h3>
+          <p>8px 基数系统，"内紧外松"：元素内部 12-20px，模块间 32-48px，大区块 80px。节奏感靠间距创造。</p>
+        </div>
+        <div class="principle-item dark">
+          <div class="num">06</div>
+          <h3>动效服务于理解</h3>
+          <p>hover 反馈说"可交互"，转场说"从哪来到哪去"。每个动效都要能解释"为什么"，否则就是噪音。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>推荐学习路径</h2>
+      <div class="steps">
+        <div class="step"><b>1. 先看两方方法</b><span>理解 Codex 的 Skill 约束法和 Claude 的设计系统法各自怎么运作。</span></div>
+        <div class="step"><b>2. 对比设计输出</b><span>打开两方的页面，实际感受排版、色彩、间距、动效的差异。</span></div>
+        <div class="step"><b>3. 提炼自己的方法</b><span>结合两方优点，建立你自己的前端设计工作流。</span></div>
+      </div>
+    </section>
+
+    <p class="footer">隐私处理：本仓库已移除真实邮箱、手机号和邮件跳转链接；公开发布前仍建议再跑一次脱敏扫描。</p>
+  </main>
+</body>
+</html>

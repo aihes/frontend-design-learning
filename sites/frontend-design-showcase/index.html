@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Frontend Design Intelligence — 一个 AI 设计前端的方法论展示</title>
+  <link rel="icon" href="data:,">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+    :root {
+      --bg: #0a0a09;
+      --surface: #131311;
+      --surface2: #1a1a17;
+      --paper: #f2ece0;
+      --ink: #e8e2d6;
+      --muted: #7a7568;
+      --dim: #4a463e;
+      --accent: #c85a3a;
+      --accent2: #e8a44a;
+      --green: #5ab88f;
+      --blue: #5a9ec8;
+      --red: #c85a5a;
+      --serif: 'Instrument Serif', 'Noto Serif SC', 'Songti SC', Georgia, serif;
+      --sans: 'DM Sans', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      --mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+      --grid: 1px solid rgba(242, 236, 224, 0.04);
+      --grid-strong: 1px solid rgba(242, 236, 224, 0.08);
+      --radius: 2px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Utility ── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 48px); }
+    .mono { font-family: var(--mono); }
+    .muted { color: var(--muted); }
+    .dim { color: var(--dim); }
+    .accent { color: var(--accent); }
+    .accent2 { color: var(--accent2); }
+    .green { color: var(--green); }
+
+    /* ── Navigation ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(10, 10, 9, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: var(--grid);
+    }
+    nav .container {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 56px;
+    }
+    nav .logo {
+      font-family: var(--mono); font-size: 13px; font-weight: 500;
+      color: var(--muted); letter-spacing: 0.02em;
+    }
+    nav .logo span { color: var(--accent); }
+    nav .links { display: flex; gap: 28px; }
+    nav .links a {
+      font-family: var(--mono); font-size: 12px; color: var(--dim);
+      text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    nav .links a:hover { color: var(--ink); }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      position: relative; overflow: hidden;
+      border-bottom: var(--grid-strong);
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        linear-gradient(135deg, rgba(200, 90, 58, 0.03) 0%, transparent 50%),
+        linear-gradient(225deg, rgba(232, 164, 74, 0.02) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .hero .grid-overlay {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background-image:
+        repeating-linear-gradient(90deg, var(--grid) 0, var(--grid) 1px, transparent 1px, transparent 120px),
+        repeating-linear-gradient(0deg, var(--grid) 0, var(--grid) 1px, transparent 1px, transparent 120px);
+      pointer-events: none; opacity: 0.6;
+    }
+    .hero .container { position: relative; z-index: 1; padding-top: 80px; padding-bottom: 80px; }
+    .hero .meta {
+      display: flex; gap: 24px; margin-bottom: 32px;
+      font-family: var(--mono); font-size: 11px; color: var(--dim);
+      text-transform: uppercase; letter-spacing: 0.12em;
+    }
+    .hero .meta .tag {
+      padding: 4px 10px; border: 1px solid var(--dim); border-radius: var(--radius);
+    }
+    .hero h1 {
+      font-family: var(--serif); font-size: clamp(48px, 9vw, 112px);
+      line-height: 0.95; letter-spacing: -0.02em;
+      color: var(--paper); font-weight: 400;
+      max-width: 900px; margin-bottom: 32px;
+    }
+    .hero h1 em {
+      font-style: italic; color: var(--accent);
+    }
+    .hero .subtitle {
+      font-size: clamp(16px, 2vw, 20px); color: var(--muted);
+      max-width: 600px; line-height: 1.6; margin-bottom: 48px;
+    }
+    .hero .stats {
+      display: flex; gap: 48px;
+      padding-top: 32px;
+      border-top: var(--grid-strong);
+    }
+    .hero .stat-value {
+      font-family: var(--serif); font-size: clamp(36px, 5vw, 56px);
+      color: var(--paper); line-height: 1;
+    }
+    .hero .stat-label {
+      font-family: var(--mono); font-size: 11px; color: var(--dim);
+      text-transform: uppercase; letter-spacing: 0.1em; margin-top: 8px;
+    }
+
+    /* ── Section Shared ── */
+    section { padding: clamp(60px, 10vw, 120px) 0; border-bottom: var(--grid); }
+    .section-header {
+      display: grid; grid-template-columns: 80px 1fr; gap: 32px;
+      margin-bottom: 48px; align-items: start;
+    }
+    .section-num {
+      font-family: var(--mono); font-size: 11px; color: var(--accent);
+      text-transform: uppercase; letter-spacing: 0.12em; padding-top: 12px;
+    }
+    .section-title {
+      font-family: var(--serif); font-size: clamp(32px, 5vw, 56px);
+      color: var(--paper); line-height: 1.1; font-weight: 400;
+    }
+    .section-desc {
+      color: var(--muted); font-size: 17px; margin-top: 12px;
+      max-width: 640px;
+    }
+
+    /* ── Six Layers ── */
+    .layers-grid {
+      display: grid; gap: 0;
+    }
+    .layer {
+      display: grid; grid-template-columns: 200px 1fr 280px;
+      border-bottom: var(--grid-strong);
+      transition: background 0.3s;
+      cursor: pointer;
+    }
+    .layer:hover { background: var(--surface); }
+    .layer-num {
+      font-family: var(--mono); font-size: 11px; color: var(--accent);
+      padding: 28px 24px; letter-spacing: 0.1em; text-transform: uppercase;
+      display: flex; align-items: start;
+    }
+    .layer-body { padding: 28px 24px; }
+    .layer-name {
+      font-family: var(--serif); font-size: 24px; color: var(--paper);
+      font-weight: 400; margin-bottom: 6px;
+    }
+    .layer-question { font-size: 15px; color: var(--muted); }
+    .layer-meta {
+      padding: 28px 24px; display: flex; flex-direction: column; justify-content: center; gap: 6px;
+    }
+    .layer-tool {
+      font-family: var(--mono); font-size: 12px; color: var(--dim);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .layer-tool .dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--dim); flex-shrink: 0;
+    }
+
+    /* ── Skills ── */
+    .skills-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--grid-strong);
+    }
+    .skill-card {
+      background: var(--bg); padding: 32px;
+      transition: background 0.3s;
+      position: relative;
+    }
+    .skill-card:hover { background: var(--surface); }
+    .skill-tag {
+      font-family: var(--mono); font-size: 10px; color: var(--accent);
+      text-transform: uppercase; letter-spacing: 0.12em;
+      margin-bottom: 16px;
+    }
+    .skill-name {
+      font-family: var(--serif); font-size: 22px; color: var(--paper);
+      font-weight: 400; margin-bottom: 10px;
+    }
+    .skill-desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
+    .skill-principle {
+      margin-top: 20px; padding-top: 16px; border-top: var(--grid);
+    }
+    .skill-principle-label {
+      font-family: var(--mono); font-size: 10px; color: var(--dim);
+      text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px;
+    }
+    .skill-principle-text { font-size: 14px; color: var(--ink); font-style: italic; }
+
+    /* ── Comparison ── */
+    .comparison {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+      background: var(--grid-strong); margin: 32px 0;
+    }
+    .comparison-side { background: var(--bg); padding: 32px; }
+    .comparison-label {
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em;
+      text-transform: uppercase; margin-bottom: 20px;
+    }
+    .comparison-side.bad .comparison-label { color: var(--red); }
+    .comparison-side.good .comparison-label { color: var(--green); }
+    .comparison-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 14px; margin-bottom: 12px; color: var(--muted);
+    }
+    .comparison-item .icon {
+      width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono); font-size: 12px; font-weight: 700;
+    }
+    .comparison-side.bad .icon { color: var(--red); }
+    .comparison-side.good .icon { color: var(--green); }
+
+    /* ── Process Flow ── */
+    .process-flow {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: var(--grid-strong);
+    }
+    .process-step {
+      background: var(--bg); padding: 28px;
+      position: relative;
+    }
+    .process-step-num {
+      font-family: var(--mono); font-size: 10px; color: var(--accent);
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px;
+    }
+    .process-step-title {
+      font-family: var(--serif); font-size: 20px; color: var(--paper);
+      font-weight: 400; margin-bottom: 8px;
+    }
+    .process-step-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .process-arrow {
+      position: absolute; right: -8px; top: 50%;
+      color: var(--dim); font-family: var(--mono); font-size: 14px; z-index: 1;
+    }
+
+    /* ── Design Brief ── */
+    .brief-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    }
+    .brief-card {
+      background: var(--surface); border: 1px solid rgba(242, 236, 224, 0.06);
+      padding: 28px;
+    }
+    .brief-card-title {
+      font-family: var(--mono); font-size: 10px; color: var(--accent);
+      text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 16px;
+    }
+    .brief-row {
+      display: flex; justify-content: space-between;
+      padding: 8px 0; border-bottom: var(--grid);
+      font-size: 14px;
+    }
+    .brief-row:last-child { border-bottom: none; }
+    .brief-key { color: var(--muted); }
+    .brief-val { color: var(--ink); font-weight: 500; }
+
+    /* ── Anti-AI Checklist ── */
+    .checklist {
+      display: grid; gap: 0;
+    }
+    .check-item {
+      display: grid; grid-template-columns: 32px 1fr auto;
+      gap: 16px; padding: 16px 0;
+      border-bottom: var(--grid);
+      align-items: center;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .check-item:hover { opacity: 0.8; }
+    .check-box {
+      width: 18px; height: 18px; border: 1.5px solid var(--dim);
+      border-radius: var(--radius); display: flex;
+      align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .check-item.checked .check-box {
+      background: var(--green); border-color: var(--green);
+    }
+    .check-item.checked .check-box::after {
+      content: ''; width: 6px; height: 10px;
+      border: solid var(--bg); border-width: 0 2px 2px 0;
+      transform: rotate(45deg); margin-top: -2px;
+    }
+    .check-text { font-size: 15px; color: var(--ink); }
+    .check-severity {
+      font-family: var(--mono); font-size: 10px;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      padding: 3px 8px; border-radius: var(--radius);
+    }
+    .check-severity.high { color: var(--red); background: rgba(200, 90, 90, 0.1); }
+    .check-severity.mid { color: var(--accent2); background: rgba(232, 164, 74, 0.1); }
+
+    /* ── Tools Table ── */
+    .tools-table {
+      width: 100%; border-collapse: collapse;
+      font-size: 14px;
+    }
+    .tools-table th {
+      text-align: left; font-family: var(--mono); font-size: 10px;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--dim); padding: 12px 16px;
+      border-bottom: var(--grid-strong);
+    }
+    .tools-table td {
+      padding: 14px 16px; border-bottom: var(--grid);
+      vertical-align: top;
+    }
+    .tools-table tr:hover td { background: var(--surface); }
+    .tools-table .tool-type {
+      font-family: var(--mono); font-size: 11px; color: var(--accent);
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .tools-table .tool-do { color: var(--green); }
+    .tools-table .tool-dont { color: var(--red); }
+
+    /* ── Code Block ── */
+    .code-block {
+      background: var(--surface); border: 1px solid rgba(242, 236, 224, 0.06);
+      padding: 24px; margin: 24px 0;
+      font-family: var(--mono); font-size: 13px; line-height: 1.7;
+      color: var(--muted); overflow-x: auto;
+      position: relative;
+    }
+    .code-block .keyword { color: var(--accent); }
+    .code-block .string { color: var(--green); }
+    .code-block .comment { color: var(--dim); }
+    .code-block .label {
+      position: absolute; top: 0; right: 0;
+      font-family: var(--mono); font-size: 9px;
+      color: var(--dim); text-transform: uppercase; letter-spacing: 0.12em;
+      padding: 8px 12px; background: var(--surface2);
+    }
+
+    /* ── Quote / Callout ── */
+    .callout {
+      display: grid; grid-template-columns: 4px 1fr;
+      gap: 20px; padding: 28px;
+      background: var(--surface);
+      border: 1px solid rgba(242, 236, 224, 0.06);
+      margin: 32px 0;
+    }
+    .callout-bar { background: var(--accent); border-radius: 2px; }
+    .callout-content { }
+    .callout-content strong {
+      font-family: var(--mono); font-size: 11px;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--accent); display: block; margin-bottom: 8px;
+    }
+    .callout-content p { color: var(--ink); font-size: 17px; line-height: 1.6; }
+
+    /* ── Footer ── */
+    footer {
+      padding: 40px 0;
+      border-top: var(--grid-strong);
+    }
+    footer .container {
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    footer .meta { font-family: var(--mono); font-size: 11px; color: var(--dim); }
+    footer a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: var(--ink); }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      nav .links { display: none; }
+      .hero .stats { flex-direction: column; gap: 24px; }
+      .section-header { grid-template-columns: 1fr; }
+      .section-num { padding-top: 0; }
+      .layers-grid .layer { grid-template-columns: 1fr; }
+      .layer-num { padding: 16px 0 0; }
+      .layer-body { padding: 8px 0; }
+      .layer-meta { padding: 0 0 16px; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .comparison { grid-template-columns: 1fr; }
+      .process-flow { grid-template-columns: 1fr 1fr; }
+      .process-arrow { display: none; }
+      .brief-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 40px; }
+      .process-flow { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <div class="logo">frontend<span>.</span>design<span>.</span>intelligence</div>
+      <div class="links">
+        <a href="#layers">Six Layers</a>
+        <a href="#skills">Skills</a>
+        <a href="#process">Process</a>
+        <a href="#comparison">Comparison</a>
+        <a href="#tools">Tools</a>
+        <a href="#checklist">Checklist</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="grid-overlay"></div>
+    <div class="container">
+      <div class="meta">
+        <span class="tag">Design Methodology</span>
+        <span class="tag">Self-Demonstrating</span>
+        <span class="tag">2026</span>
+      </div>
+      <h1>
+        AI design<br>
+        with <em>principles</em>,<br>
+        not prompts
+      </h1>
+      <p class="subtitle">
+        We designed this site using every method described below.
+        The six-layer framework, the anti-AI checklist, the skill selection matrix —
+        all applied to this very page. This is the proof.
+      </p>
+      <div class="stats">
+        <div>
+          <div class="stat-value">6</div>
+          <div class="stat-label">Design Layers</div>
+        </div>
+        <div>
+          <div class="stat-value">9</div>
+          <div class="stat-label">Applied Skills</div>
+        </div>
+        <div>
+          <div class="stat-value">8</div>
+          <div class="stat-label">Process Steps</div>
+        </div>
+        <div>
+          <div class="stat-value">0</div>
+          <div class="stat-label">Purple Gradients</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 01: Six Layers -->
+  <section id="layers">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-num">Section 01</div>
+        <div>
+          <h2 class="section-title">The Six-Layer Problem</h2>
+          <p class="section-desc">
+            Good frontend isn't just CSS. Every page must solve six independent problems.
+            Tweaking colors only fixes part of Layer 3.
+          </p>
+        </div>
+      </div>
+
+      <div class="layers-grid">
+        <div class="layer">
+          <div class="layer-num">L1 / Narrative</div>
+          <div class="layer-body">
+            <div class="layer-name">What is this page saying?</div>
+            <div class="layer-question">Can a visitor understand who, what, proof, and contact in 30 seconds?</div>
+          </div>
+          <div class="layer-meta">
+            <div class="layer-tool"><span class="dot"></span>interactive-portfolio</div>
+            <div class="layer-tool"><span class="dot"></span>30-second test</div>
+          </div>
+        </div>
+        <div class="layer">
+          <div class="layer-num">L2 / Information Architecture</div>
+          <div class="layer-body">
+            <div class="layer-name">What modules, in what order?</div>
+            <div class="layer-question">Does section order support user decision-making, not just field stacking?</div>
+          </div>
+          <div class="layer-meta">
+            <div class="layer-tool"><span class="dot"></span>Relume</div>
+            <div class="layer-tool"><span class="dot"></span>design-consultation</div>
+          </div>
+        </div>
+        <div class="layer">
+          <div class="layer-num">L3 / Visual Direction</div>
+          <div class="layer-body">
+            <div class="layer-name">What does this look like?</div>
+            <div class="layer-question">Is there a clear visual stance, or does it look like a generic template?</div>
+          </div>
+          <div class="layer-meta">
+            <div class="layer-tool"><span class="dot"></span>Variant / Godly</div>
+            <div class="layer-tool"><span class="dot"></span>design-shotgun</div>
+          </div>
+        </div>
+        <div class="layer">
+          <div class="layer-num">L4 / Design System</div>
+          <div class="layer-body">
+            <div class="layer-name">How do we stay consistent?</div>
+            <div class="layer-question">Are tokens and components unified, or scattered with hardcoded values?</div>
+          </div>
+          <div class="layer-meta">
+            <div class="layer-tool"><span class="dot"></span>tailwind-design-system</div>
+            <div class="layer-tool"><span class="dot"></span>CSS custom properties</div>
+          </div>
+        </div>
+        <div class="layer">
+          <div class="layer-num">L5 / Layout Engineering</div>
+          <div class="layer-body">
+            <div class="layer-name">Does the page actually work?</div>
+            <div class="layer-question">Desktop and mobile don't break. Scroll areas are correct. No overflow.</div>
+          </div>
+          <div class="layer-meta">
+            <div class="layer-tool"><span class="dot"></span>shadcn-layouts</div>
+            <div class="layer-tool"><span class="dot"></span>min-h-0 / height chains</div>
+          </div>
+        </div>
+        <div class="layer">
+          <div class="layer-num">L6 / Ship Review</div>
+          <div class="layer-body">
+            <div class="layer-name">Is it trustworthy and safe?</div>
+            <div class="layer-question">No fabrication. No privacy leaks. No hallucinated testimonials.</div>
+          </div>
+          <div class="layer-meta">
+            <div class="layer-tool"><span class="dot"></span>claude-page-review</div>
+            <div class="layer-tool"><span class="dot"></span>Playwright screenshots</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="callout-bar"></div>
+        <div class="callout-content">
+          <strong>Core Judgment</strong>
+          <p>
+            AI can't design good frontends without direction, references, a design system,
+            and screenshot QA. The problem isn't the model — it's the empty prompt.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 02: Skills -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-num">Section 02</div>
+        <div>
+          <h2 class="section-title">Nine Skills, Nine Principles</h2>
+          <p class="section-desc">
+            Each skill has an underlying design principle, not just a feature list.
+            Applied correctly, they constrain AI output toward intentional design.
+          </p>
+        </div>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-tag">Narrative</div>
+          <div class="skill-name">interactive-portfolio</div>
+          <div class="skill-desc">Portfolio is opportunity conversion, not resume web-ification. Projects as evidence, not lists.</div>
+          <div class="skill-principle">
+            <div class="skill-principle-label">Principle</div>
+            <div class="skill-principle-text">30 seconds to know: who, what, strongest proof, how to contact.</div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-tag">Visual</div>
+          <div class="skill-name">frontend-design</div>
+          <div class="skill-desc">Decide visual stance first, then code. Typography, color, space, motion all serve one concept.</div>
+          <div class="skill-principle">
+            <div class="skill-principle-label">Principle</div>
+            <div class="skill-principle-text">Editorial, minimal, industrial, luxury, toy, archive, report, console — pick one.</div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-tag">Quality Gate</div>
+          <div class="skill-name">design-taste-frontend</div>
+          <div class="skill-desc">Hard constraints to counteract AI statistical bias: no purple gradients, no default fonts, no card abuse.</div>
+          <div class="skill-principle">
+            <div class="skill-principle-label">Principle</div>
+            <div class="skill-principle-text">LLM UI has statistical bias. Use rules to counter-calibrate.</div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-tag">Exploration</div>
+          <div class="skill-name">design-shotgun</div>
+          <div class="skill-desc">Don't iterate on one wrong direction. Expand search space first with genuinely different directions.</div>
+          <div class="skill-principle">
+            <div class="skill-principle-label">Principle</div>
+            <div class="skill-principle-text">Change information structure, visual density, typography rhythm — not just button colors.</div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-tag">System</div>
+          <div class="skill-name">design-consultation</div>
+          <div class="skill-desc">Design isn't one page — it's a reusable set of choices. Template families, brand tone, spacing rhythm.</div>
+          <div class="skill-principle">
+            <div class="skill-principle-label">Principle</div>
+            <div class="skill-principle-text">Define once, apply everywhere. Token and component contracts, not ad-hoc styling.</div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-tag">System</div>
+          <div class="skill-name">tailwind-design-system</div>
+          <div class="skill-desc">Design judgment must become tokens and component contracts. Single source of truth for colors, spacing, radius.</div>
+          <div class="skill-principle">
+            <div class="skill-principle-label">Principle</div>
+            <div class="skill-principle-text">Without tokens, every generated page drifts. CSS custom properties are the contract.</div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-tag">Engineering</div>
+          <div class="skill-name">shadcn-layouts</div>
+          <div class="skill-desc">CSS layout comes from constraint chains. Height inheritance, scroll containers, grid parent-child relationships.</div>
+          <div class="skill-principle">
+            <div class="skill-principle-label">Principle</div>
+            <div class="skill-principle-text">h-full needs parent height. Flex scroll children need min-h-0. Grid items need grid parents.</div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-tag">Expression</div>
+          <div class="skill-name">frontend-css-patterns</div>
+          <div class="skill-desc">Visual language is built from reusable CSS patterns. Font pairings, limited palettes, overlapping, texture, motion rhythm.</div>
+          <div class="skill-principle">
+            <div class="skill-principle-label">Principle</div>
+            <div class="skill-principle-text">Patterns serve content, not decoration. Every gradient, mask, and animation should have a reason.</div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-tag">Conversion</div>
+          <div class="skill-name">landing-page-design</div>
+          <div class="skill-desc">The hero must communicate value, evidence, and action in 5 seconds. For acquisition pages only.</div>
+          <div class="skill-principle">
+            <div class="skill-principle-label">Principle</div>
+            <div class="skill-principle-text">Don't apply landing page patterns to personal sites — it makes them look like sales pages.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 03: Process -->
+  <section id="process">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-num">Section 03</div>
+        <div>
+          <h2 class="section-title">Find References First,<br>Then Rebuild</h2>
+          <p class="section-desc">
+            The most important workflow: don't let AI design from scratch.
+            Find similar sites, abstract design language, then rebuild.
+          </p>
+        </div>
+      </div>
+
+      <div class="process-flow">
+        <div class="process-step">
+          <div class="process-step-num">01</div>
+          <div class="process-step-title">Define Page Type</div>
+          <div class="process-step-desc">Personal site? SaaS landing? Report page? Dashboard? Each needs different methods.</div>
+          <div class="process-arrow">&rarr;</div>
+        </div>
+        <div class="process-step">
+          <div class="process-step-num">02</div>
+          <div class="process-step-title">Find References</div>
+          <div class="process-step-desc">Visual direction from Godly/Awwwards. Product flows from Mobbin/Page Flows. SaaS pages from Saaspo.</div>
+          <div class="process-arrow">&rarr;</div>
+        </div>
+        <div class="process-step">
+          <div class="process-step-num">03</div>
+          <div class="process-step-title">Screenshot & Archive</div>
+          <div class="process-step-desc">Desktop hero, key sections, mobile hero. No screenshots = no design reference.</div>
+          <div class="process-arrow">&rarr;</div>
+        </div>
+        <div class="process-step">
+          <div class="process-step-num">04</div>
+          <div class="process-step-title">Abstract, Don't Copy</div>
+          <div class="process-step-desc">Extract: info order, type feel, color relationships, whitespace density, CTA hierarchy, mobile fold.</div>
+        </div>
+      </div>
+
+      <div style="height: 1px;"></div>
+
+      <div class="process-flow">
+        <div class="process-step">
+          <div class="process-step-num">05</div>
+          <div class="process-step-title">Generate Brief</div>
+          <div class="process-step-desc">Turn reference patterns into rules. Not "copy site X" but "left-aligned hero, single accent color, case study cards".</div>
+          <div class="process-arrow">&rarr;</div>
+        </div>
+        <div class="process-step">
+          <div class="process-step-num">06</div>
+          <div class="process-step-title">Implement</div>
+          <div class="process-step-desc">Code from brief + tokens + component rules. Only touch real source files, never build artifacts.</div>
+          <div class="process-arrow">&rarr;</div>
+        </div>
+        <div class="process-step">
+          <div class="process-step-num">07</div>
+          <div class="process-step-title">Visual QA</div>
+          <div class="process-step-desc">Playwright screenshots on desktop and mobile. Check text overflow, CTA visibility, scroll, images.</div>
+          <div class="process-arrow">&rarr;</div>
+        </div>
+        <div class="process-step">
+          <div class="process-step-num">08</div>
+          <div class="process-step-title">Ship Review</div>
+          <div class="process-step-desc">Check copy, credibility, privacy, exaggeration, brand consistency before going live.</div>
+        </div>
+      </div>
+
+      <!-- Design Brief Applied to This Page -->
+      <div style="margin-top: 48px;">
+        <div class="section-header" style="margin-bottom: 24px;">
+          <div class="section-num">Applied</div>
+          <div>
+            <h2 class="section-title" style="font-size: clamp(24px, 3.5vw, 40px);">
+              The brief we wrote for this page
+            </h2>
+          </div>
+        </div>
+        <div class="brief-grid">
+          <div class="brief-card">
+            <div class="brief-card-title">Visual Language</div>
+            <div class="brief-row"><span class="brief-key">Typography</span><span class="brief-val">Instrument Serif + DM Sans + JetBrains Mono</span></div>
+            <div class="brief-row"><span class="brief-key">Primary</span><span class="brief-val">#0a0a09 / near-black</span></div>
+            <div class="brief-row"><span class="brief-key">Accent</span><span class="brief-val">#c85a3a / burnt terracotta</span></div>
+            <div class="brief-row"><span class="brief-key">Background</span><span class="brief-val">Subtle grid overlay, minimal gradients</span></div>
+            <div class="brief-row"><span class="brief-key">Motion</span><span class="brief-val">Hover transitions only, no scroll animations</span></div>
+          </div>
+          <div class="brief-card">
+            <div class="brief-card-title">Component Rules</div>
+            <div class="brief-row"><span class="brief-key">Button</span><span class="brief-val">No buttons — this is a reference page, not an app</span></div>
+            <div class="brief-row"><span class="brief-key">Card</span><span class="brief-val">Flat, 1px borders, no shadows, no border-radius</span></div>
+            <div class="brief-row"><span class="brief-key">Tags</span><span class="brief-val">Monospace 10-11px, uppercase, wide tracking</span></div>
+            <div class="brief-row"><span class="brief-key">Sections</span><span class="brief-val">Separated by 1px grid lines, not whitespace gaps</span></div>
+            <div class="brief-row"><span class="brief-key">Mobile</span><span class="brief-val">Single column, all grids collapse</span></div>
+          </div>
+          <div class="brief-card">
+            <div class="brief-card-title">Banned Patterns</div>
+            <div class="brief-row"><span class="brief-key">No</span><span class="brief-val">Purple-blue gradients</span></div>
+            <div class="brief-row"><span class="brief-key">No</span><span class="brief-val">Three-column feature cards everywhere</span></div>
+            <div class="brief-row"><span class="brief-key">No</span><span class="brief-val">Inter / Arial / system default fonts</span></div>
+            <div class="brief-row"><span class="brief-key">No</span><span class="brief-val">Heavy shadows, large border-radius, glow effects</span></div>
+            <div class="brief-row"><span class="brief-key">No</span><span class="brief-val">Fabricated testimonials, metrics, or endorsements</span></div>
+          </div>
+          <div class="brief-card">
+            <div class="brief-card-title">Acceptance Criteria</div>
+            <div class="brief-row"><span class="brief-key">Desktop</span><span class="brief-val">Screenshot verified, no horizontal scroll</span></div>
+            <div class="brief-row"><span class="brief-key">Mobile</span><span class="brief-val">Single column, no overflow, all content accessible</span></div>
+            <div class="brief-row"><span class="brief-key">Content</span><span class="brief-val">All claims are from real playbook, no fabrication</span></div>
+            <div class="brief-row"><span class="brief-key">Performance</span><span class="brief-val">Single HTML file, no JS frameworks, Google Fonts only</span></div>
+            <div class="brief-row"><span class="brief-key">Self-referential</span><span class="brief-val">This page demonstrates the principles it documents</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 04: Comparison -->
+  <section id="comparison">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-num">Section 04</div>
+        <div>
+          <h2 class="section-title">Default AI vs. Principled Design</h2>
+          <p class="section-desc">
+            What happens when you prompt "make a pretty page" versus following the six-layer framework.
+          </p>
+        </div>
+      </div>
+
+      <div class="comparison">
+        <div class="comparison-side bad">
+          <div class="comparison-label">Default AI Output</div>
+          <div class="comparison-item"><span class="icon">&times;</span> Centered hero with gradient background</div>
+          <div class="comparison-item"><span class="icon">&times;</span> Purple-blue color scheme</div>
+          <div class="comparison-item"><span class="icon">&times;</span> Three equal-width feature cards</div>
+          <div class="comparison-item"><span class="icon">&times;</span> Inter or system font for everything</div>
+          <div class="comparison-item"><span class="icon">&times;</span> Large rounded corners on every card</div>
+          <div class="comparison-item"><span class="icon">&times;</span> "Empower the future" style copy</div>
+          <div class="comparison-item"><span class="icon">&times;</span> Only desktop success state</div>
+          <div class="comparison-item"><span class="icon">&times;</span> Heavy box shadows everywhere</div>
+          <div class="comparison-item"><span class="icon">&times;</span> Every section wrapped in cards</div>
+          <div class="comparison-item"><span class="icon">&times;</span> No loading, empty, or error states</div>
+        </div>
+        <div class="comparison-side good">
+          <div class="comparison-label">Principled Design</div>
+          <div class="comparison-item"><span class="icon">&check;</span> Intentional visual stance (editorial, industrial, etc.)</div>
+          <div class="comparison-item"><span class="icon">&check;</span> Limited palette: 2 accents + 3 neutrals</div>
+          <div class="comparison-item"><span class="icon">&check;</span> Varied section layouts: grid, timeline, table, list</div>
+          <div class="comparison-item"><span class="icon">&check;</span> Three-font system: serif titles + sans body + mono labels</div>
+          <div class="comparison-item"><span class="icon">&check;</span> Sharp or minimal corners, structural borders</div>
+          <div class="comparison-item"><span class="icon">&check;</span> Specific facts, real metrics, concrete language</div>
+          <div class="comparison-item"><span class="icon">&check;</span> Desktop + mobile + edge cases tested</div>
+          <div class="comparison-item"><span class="icon">&check;</span> Flat surfaces, no gratuitous shadows</div>
+          <div class="comparison-item"><span class="icon">&check;</span> Content breathes — whitespace is deliberate</div>
+          <div class="comparison-item"><span class="icon">&check;</span> Loading, empty, error, active states designed</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 05: Tools -->
+  <section id="tools">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-num">Section 05</div>
+        <div>
+          <h2 class="section-title">External Tools & References</h2>
+          <p class="section-desc">
+            AI generators are reference inputs, not production dependencies.
+            Reference libraries are more stable and more valuable.
+          </p>
+        </div>
+      </div>
+
+      <table class="tools-table">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Tool</th>
+            <th>Use For</th>
+            <th>Don't</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="tool-type">AI Visual</td>
+            <td>Variant</td>
+            <td class="tool-do">Page mood, hero style, component combinations</td>
+            <td class="tool-dont">Don't use as production code source</td>
+          </tr>
+          <tr>
+            <td class="tool-type">Architecture</td>
+            <td>Relume</td>
+            <td class="tool-do">Sitemap, wireframe, section ordering</td>
+            <td class="tool-dont">Don't trust generated names/metrics</td>
+          </tr>
+          <tr>
+            <td class="tool-type">Code Gen</td>
+            <td>v0, Lovable, Bolt</td>
+            <td class="tool-do">Quick app prototypes after login</td>
+            <td class="tool-dont">Don't skip source review and responsive QA</td>
+          </tr>
+          <tr>
+            <td class="tool-type">Inspiration</td>
+            <td>Godly, Awwwards</td>
+            <td class="tool-do">Visual language, motion, typographic tension</td>
+            <td class="tool-dont">Don't copy unique brand assets</td>
+          </tr>
+          <tr>
+            <td class="tool-type">Landing</td>
+            <td>Land-book, Saaspo</td>
+            <td class="tool-do">Hero, CTA, section structure, SaaS narrative</td>
+            <td class="tool-dont">Don't make personal sites look like sales pages</td>
+          </tr>
+          <tr>
+            <td class="tool-type">Real Flows</td>
+            <td>Mobbin, Page Flows</td>
+            <td class="tool-do">Upload, login, edit, share, dashboard flows</td>
+            <td class="tool-dont">Don't look at single screens — study full paths</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Section 06: Checklist -->
+  <section id="checklist">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-num">Section 06</div>
+        <div>
+          <h2 class="section-title">Anti-AI-Taste Checklist</h2>
+          <p class="section-desc">
+            Click to verify each item. This checklist applies to this page too.
+          </p>
+        </div>
+      </div>
+
+      <div class="checklist" id="checklist-items">
+        <div class="check-item" onclick="this.classList.toggle('checked')">
+          <div class="check-box"></div>
+          <div class="check-text">No purple-blue gradients or glowing backgrounds</div>
+          <div class="check-severity high">Blocker</div>
+        </div>
+        <div class="check-item" onclick="this.classList.toggle('checked')">
+          <div class="check-box"></div>
+          <div class="check-text">No three-column card layouts in every section</div>
+          <div class="check-severity high">Blocker</div>
+        </div>
+        <div class="check-item" onclick="this.classList.toggle('checked')">
+          <div class="check-box"></div>
+          <div class="check-text">No vague copy: "empower", "innovate", "transform" without evidence</div>
+          <div class="check-severity high">Blocker</div>
+        </div>
+        <div class="check-item" onclick="this.classList.toggle('checked')">
+          <div class="check-box"></div>
+          <div class="check-text">Font system has clear hierarchy: title / body / label / code faces</div>
+          <div class="check-severity mid">Quality</div>
+        </div>
+        <div class="check-item" onclick="this.classList.toggle('checked')">
+          <div class="check-box"></div>
+          <div class="check-text">Page includes real assets (screenshots, data, references) — not just color blocks and icons</div>
+          <div class="check-severity mid">Quality</div>
+        </div>
+        <div class="check-item" onclick="this.classList.toggle('checked')">
+          <div class="check-box"></div>
+          <div class="check-text">Mobile is restructured (single column, full-width CTAs), not just shrunk</div>
+          <div class="check-severity high">Blocker</div>
+        </div>
+        <div class="check-item" onclick="this.classList.toggle('checked')">
+          <div class="check-box"></div>
+          <div class="check-text">No fabricated testimonials, metrics, logos, or endorsements</div>
+          <div class="check-severity high">Blocker</div>
+        </div>
+        <div class="check-item" onclick="this.classList.toggle('checked')">
+          <div class="check-box"></div>
+          <div class="check-text">No privacy leaks: private contact details are hidden</div>
+          <div class="check-severity high">Blocker</div>
+        </div>
+        <div class="check-item" onclick="this.classList.toggle('checked')">
+          <div class="check-box"></div>
+          <div class="check-text">First screen answers: who, what, proof, how to act — within 5 seconds</div>
+          <div class="check-severity mid">Quality</div>
+        </div>
+        <div class="check-item" onclick="this.classList.toggle('checked')">
+          <div class="check-box"></div>
+          <div class="check-text">Loading, empty, and error states are considered (even if not all shown)</div>
+          <div class="check-severity mid">Quality</div>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top: 40px;">
+        <div class="callout-bar" style="background: var(--green);"></div>
+        <div class="callout-content">
+          <strong>How to use this checklist</strong>
+          <p>
+            Before shipping any AI-generated frontend, run through every item.
+            If a Blocker item fails, don't ship. If a Quality item fails, fix it before the next iteration.
+            This checklist is the minimum bar — it doesn't guarantee great design, but it prevents the most common failures.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 07: Prompt Templates -->
+  <section id="prompts">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-num">Section 07</div>
+        <div>
+          <h2 class="section-title">Prompt Templates</h2>
+          <p class="section-desc">
+            The right prompt structure is the difference between generic output and intentional design.
+          </p>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <div class="label">Reference Research</div>
+        <span class="comment">// Step 1: Never start with "make it pretty"</span>
+        <br><br>
+        <span class="keyword">I need a</span> [page type], <span class="keyword">target user is</span> [user], <span class="keyword">core goal is</span> [goal].
+        <br><br>
+        <span class="keyword">Do NOT write code yet.</span> First, search/open 5 high-quality similar sites
+        as references, save screenshots, and analyze:
+        <br>
+        <span class="string">1.</span> Hero information structure
+        <br>
+        <span class="string">2.</span> Navigation and CTAs
+        <br>
+        <span class="string">3.</span> Typography personality
+        <br>
+        <span class="string">4.</span> Color system
+        <br>
+        <span class="string">5.</span> Section ordering
+        <br>
+        <span class="string">6.</span> Card / list / image usage patterns
+        <br>
+        <span class="string">7.</span> Mobile layout
+        <br>
+        <span class="string">8.</span> What can be abstracted vs. what must not be copied
+        <br><br>
+        <span class="keyword">Output a new design brief</span>, then design from the brief — don't copy any site directly.
+      </div>
+
+      <div class="code-block">
+        <div class="label">Implementation</div>
+        <span class="comment">// Step 2: Code from the brief, not from vibes</span>
+        <br><br>
+        <span class="keyword">Implement</span> based on the design brief above.
+        <br><br>
+        Requirements:
+        <br>
+        <span class="string">-</span> Use real source files, never build artifacts
+        <br>
+        <span class="string">-</span> Use existing components and tokens; if none exist, define minimum tokens first
+        <br>
+        <span class="string">-</span> No default AI style: purple gradients, three-column cards, Inter defaults, card overuse
+        <br>
+        <span class="string">-</span> All content from given facts — no fabricated clients, data, testimonials, awards
+        <br>
+        <span class="string">-</span> Screenshot-verify desktop and mobile
+        <br>
+        <span class="string">-</span> Return file paths, test results, screenshot paths
+      </div>
+
+      <div class="code-block">
+        <div class="label">Full Codex Command</div>
+        <span class="comment">// The complete workflow in one prompt</span>
+        <br><br>
+        You are generating a candidate personal website for Offer-Compass.
+        <br><br>
+        <span class="keyword">Do not write code yet.</span> Execute in this order:
+        <br>
+        <span class="string">1.</span> Use interactive-portfolio method to restructure resume narrative
+        <br>
+        <span class="string">2.</span> Find 5 high-quality reference sites, save desktop + mobile screenshots
+        <br>
+        <span class="string">3.</span> Analyze: IA, typography, colors, CTAs, section order, mobile layout
+        <br>
+        <span class="string">4.</span> Abstract into a new design brief — don't copy any site assets
+        <br>
+        <span class="string">5.</span> Choose template family, define tokens, components, responsive rules
+        <br>
+        <span class="string">6.</span> Only modify real source files, never build artifacts
+        <br>
+        <span class="string">7.</span> Screenshot desktop + mobile with Playwright after implementation
+        <br>
+        <span class="string">8.</span> Check for: fabricated data, privacy leaks, horizontal scroll, broken images, unclickable CTAs
+        <br>
+        <span class="string">9.</span> Return file paths, screenshot paths, verification results, remaining risks
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="meta">
+        This page was designed using the six-layer framework it documents. <br>
+        No purple gradients were used in the making of this site.
+      </div>
+      <div class="meta" style="text-align: right;">
+        <a href="../codex-frontend-design-playbook/index.html">Full Playbook</a> &middot;
+        <a href="../skill-variants/index.html">Skill Variants</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

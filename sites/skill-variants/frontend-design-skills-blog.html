@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>我用同一份简历试了 6 个前端设计 Skill</title>
+  <style>
+    :root {
+      --ink: #171717;
+      --muted: #6b6b6b;
+      --line: #e6e2d8;
+      --paper: #fbf7ef;
+      --panel: #fffdf8;
+      --accent: #b54e3f;
+      --green: #0f6b55;
+      --code: #24231f;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: "Avenir Next", "PingFang SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.75;
+    }
+    .wrap {
+      width: min(920px, calc(100vw - 36px));
+      margin: 0 auto;
+      padding: 72px 0 96px;
+    }
+    header {
+      margin-bottom: 48px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--line);
+    }
+    .eyebrow {
+      margin: 0 0 16px;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 0 0 20px;
+      font-family: "Songti SC", Georgia, serif;
+      font-size: clamp(42px, 7vw, 82px);
+      line-height: 1.02;
+      letter-spacing: 0;
+    }
+    .lead {
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 20px;
+    }
+    h2 {
+      margin: 58px 0 18px;
+      font-size: 30px;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+    }
+    p {
+      margin: 0 0 18px;
+      font-size: 17px;
+    }
+    ul {
+      margin: 0 0 22px;
+      padding-left: 22px;
+    }
+    li {
+      margin: 7px 0;
+    }
+    figure {
+      margin: 28px 0 30px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      padding: 12px;
+    }
+    figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--line);
+    }
+    figcaption {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .note {
+      margin: 28px 0;
+      padding: 20px;
+      border-left: 4px solid var(--green);
+      background: var(--panel);
+    }
+    code, pre {
+      font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow: auto;
+      padding: 18px;
+      border-radius: 6px;
+      background: var(--code);
+      color: #f6f0e6;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin: 24px 0;
+    }
+    .card {
+      padding: 18px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }
+    .card strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--green);
+    }
+    footer {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+    }
+    @media (max-width: 640px) {
+      .wrap { width: calc(100vw - 24px); padding: 42px 0 70px; }
+      h1 { font-size: 40px; }
+      .grid { grid-template-columns: 1fr; }
+      figure { margin-inline: -4px; }
+    }
+  </style>
+</head>
+<body>
+  <article class="wrap">
+    <header>
+      <p class="eyebrow">Frontend Design Skills Review</p>
+      <h1>我用同一份简历试了 6 个前端设计 Skill</h1>
+      <p class="lead">这不是一次“谁最好看”的投票，而是一次方法论拆解：不同 Skill 到底在帮我们解决前端设计里的哪一层问题。</p>
+    </header>
+
+    <p>最近我做了一个小实验：拿同一份应届生简历，分别用不同的前端设计 Skill 生成个人网站。</p>
+    <p>这个实验不是为了证明某个 Skill 最好。更准确地说，它是为了回答一个更实际的问题：如果我们要做“上传简历，自动生成个人网站”这样的产品，不同设计 Skill 能帮到哪一步？它们的边界又在哪里？</p>
+    <p>实验对象是一份 AI 产品 / 产品运营实习方向的简历。候选人有几个比较强的信号：做过 AI 饮食推荐小程序、做过 dfgqm.com 游戏工具平台，有真实访问和 UGC，也有金融、内容运营、ESG 产品项目经历。</p>
+
+    <div class="grid">
+      <div class="card"><strong>frontend-design</strong>强概念、高识别度、避免 AI 模板。</div>
+      <div class="card"><strong>design-taste-frontend</strong>审美校准、非对称布局、减少卡片依赖。</div>
+      <div class="card"><strong>landing-page-design</strong>首屏价值、CTA、转化路径。</div>
+      <div class="card"><strong>design-shotgun</strong>多方向探索，适合早期找感觉。</div>
+      <div class="card"><strong>claude-page-review</strong>发布前审查，强调清晰、可信、克制。</div>
+      <div class="card"><strong>design-consultation</strong>设计系统和可复用模板。</div>
+    </div>
+
+    <h2>1. frontend-design：最强调“不要像 AI 模板”</h2>
+    <figure>
+      <img src="./assets/frontend-design-dossier.png" alt="frontend-design 输出截图">
+      <figcaption>frontend-design 输出：候选人档案 / dossier 方向。</figcaption>
+    </figure>
+    <p><code>frontend-design</code> 的核心目标很明确：做出有识别度、像被设计过的前端页面，而不是那种一眼能看出来的 AI 模板。</p>
+    <p>它会要求你先选一个明确的视觉方向，再让字体、颜色、背景、布局都围绕这个方向服务。这次我让它走的是 Candidate Dossier，也就是“候选人档案”方向。页面不像传统简历，而像一份给面试官看的候选人材料。</p>
+    <p>它的优势是视觉记忆点强，适合对外传播。问题是，如果没有足够清晰的业务判断，容易变成“形式感很强，但是否真的适合招聘场景还要再判断”。</p>
+
+    <h2>2. design-taste-frontend：更像高级前端审美守门员</h2>
+    <figure>
+      <img src="./assets/design-taste-frontend.png" alt="design-taste-frontend 输出截图">
+      <figcaption>design-taste-frontend 输出：克制、非对称、低模板感。</figcaption>
+    </figure>
+    <p><code>design-taste-frontend</code> 更像一个审美校准器。它不是只告诉你怎么布局，而是给出很多反 AI 味、反模板化的规则。</p>
+    <p>它强调避免居中大标题加三列卡片这种默认结构，减少过度卡片化，限制颜色数量，提升前端工程稳定性。它能让页面从“能看”变成“有前端品味”。</p>
+    <p>但它偏设计工程规则，不会自动帮你重新定义业务叙事。也就是说，它能让页面更高级，但“这个候选人到底该如何被表达”仍然需要我们自己判断。</p>
+
+    <h2>3. landing-page-design：最懂转化路径</h2>
+    <figure>
+      <img src="./assets/landing-page-design.png" alt="landing-page-design 输出截图">
+      <figcaption>landing-page-design 输出：更像一个候选人获客/咨询转化页。</figcaption>
+    </figure>
+    <p><code>landing-page-design</code> 的思路和前面两个不一样。它不是从视觉独特性出发，而是从“用户为什么要继续行动”出发。</p>
+    <p>它关注首屏 5 秒内讲清价值、CTA 是否明确、信任证据是否靠前、页面顺序是否围绕转化展开。</p>
+    <p>如果我们的目标是吸引留学生上传简历、预约咨询、加入入职陪跑，这个 Skill 的方法论很有价值。但如果只用它做个人网站，容易有一点销售页味道。</p>
+
+    <h2>4. design-shotgun：适合找方向，不适合直接上线</h2>
+    <figure>
+      <img src="./assets/design-shotgun-editorial.png" alt="design-shotgun 输出截图">
+      <figcaption>design-shotgun 输出：更像视觉探索稿，冲击强但需要收敛。</figcaption>
+    </figure>
+    <p><code>design-shotgun</code> 的价值在于探索。当你还不知道页面应该长什么样时，它适合快速拉开几个方向：编辑风、极简风、SaaS 风、品牌页风、作品集风。</p>
+    <p>这版偏编辑海报式，视觉冲击强，但未必适合真实发布。它的作用是破除路径依赖，让你看到更多可能性。</p>
+
+    <h2>5. claude-page-review：最像真实发布前的审查</h2>
+    <figure>
+      <img src="./assets/claude-page-review.png" alt="claude-page-review 输出截图">
+      <figcaption>claude-page-review 输出：最稳妥，适合发给 HR 或内推人。</figcaption>
+    </figure>
+    <p><code>claude-page-review</code> 的重点不是生成一个很酷的页面，而是做用户可见页面的二次审查。</p>
+    <p>它关心首屏能不能讲清楚，文案是不是给用户看的，有没有暴露不该暴露的信息，页面是否有清晰的 message、proof、action。</p>
+    <p>它更像“审稿人 + 发布前编辑”，不是“创意总监”。所以它适合做最后一道质量门。</p>
+
+    <h2>6. design-consultation：最适合沉淀成产品模板</h2>
+    <figure>
+      <img src="./assets/design-consultation-system.png" alt="design-consultation 输出截图">
+      <figcaption>design-consultation 输出：更像模板系统验证。</figcaption>
+    </figure>
+    <p><code>design-consultation</code> 的思路更系统化。它不是直接问页面怎么好看，而是先建立设计系统：产品气质、字体、颜色、section 节奏、卡片、按钮、标题、间距如何统一。</p>
+    <p>它不一定是最惊艳的，但最适合产品化。如果 Offer-Compass 未来要做“上传简历自动生成个人网站”，真正需要的是模板系统，而不是一次性的视觉效果。</p>
+
+    <h2>这些 Skill 的真实差异</h2>
+    <p>如果把它们放到一条产品流程里，我会这样分工：</p>
+    <ul>
+      <li><code>design-shotgun</code> 负责探索方向。</li>
+      <li><code>frontend-design</code> 负责做出一个有记忆点的高质量页面。</li>
+      <li><code>design-taste-frontend</code> 负责把页面从 AI 生成校准到有前端审美。</li>
+      <li><code>landing-page-design</code> 负责把页面改造成能转化的落地页。</li>
+      <li><code>claude-page-review</code> 负责发布前审查，确保清晰、可信、不越界。</li>
+      <li><code>design-consultation</code> 负责沉淀成可复用设计系统。</li>
+    </ul>
+
+    <div class="note">
+      这次实验最重要的结论是：这些通用前端设计 Skill 可以解决“页面不好看”的一部分问题，但解决不了“候选人表达不准”的核心问题。
+    </div>
+
+    <h2>真正需要的是一个 resume-site-designer</h2>
+    <p>简历生成个人网站这个场景真正难的地方不是 CSS，而是候选人表达。</p>
+    <p>一个好的简历网站生成器需要判断：这个候选人最强定位是什么，哪些经历应该隐藏，哪些项目应该放大，公开页面应该过滤哪些隐私，什么样的文案真实而不是包装。</p>
+    <p>所以如果 Offer-Compass 真要做这个功能，应该沉淀一个新的专用 Skill：</p>
+    <pre><code>resume-site-designer</code></pre>
+    <p>它的流程应该是：解析简历，判断候选人方向，提取强信号，过滤隐私，选择叙事结构，重写项目证据链，选择视觉模板，生成页面，再做桌面和移动端截图检查。</p>
+
+    <h2>推荐用法</h2>
+    <p>如果只是临时做一个候选人主页：用 <code>frontend-design</code> 先出一个有记忆点的版本，再用 <code>claude-page-review</code> 做发布前审查。</p>
+    <p>如果要做获客页：用 <code>landing-page-design</code>，因为它最懂首屏、CTA、信任证据和转化路径。</p>
+    <p>如果要产品化到 Offer-Compass：先用 <code>design-consultation</code> 定义模板系统，再参考 <code>design-taste-frontend</code> 的审美规则，最后做一个专用的 <code>resume-site-designer</code>。</p>
+
+    <footer>
+      本文基于同一份简历内容生成的 6 套本地 HTML 原型与 Playwright 截图整理。
+    </footer>
+  </article>
+</body>
+</html>

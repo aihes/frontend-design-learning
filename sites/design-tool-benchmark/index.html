@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resume Site Design Tool Benchmark</title>
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;background:#f4f1eb;color:#191713;font-family:"Avenir Next","PingFang SC",sans-serif;line-height:1.7}
+    .wrap{width:min(1180px,calc(100vw - 40px));margin:0 auto;padding:64px 0}
+    h1{font-size:clamp(42px,7vw,86px);line-height:1;margin:0 0 18px}
+    h2{font-size:34px;margin:56px 0 16px}
+    p{color:#5f584e}
+    .hero{border-bottom:1px solid #d8d0c4;background:#191713;color:#fff8ec}
+    .hero p{color:#d8cbb8;max-width:840px;font-size:20px}
+    .sheet{width:100%;border:1px solid #d8d0c4;background:#fff;padding:10px}
+    table{width:100%;border-collapse:collapse;background:#fffaf2;border:1px solid #d8d0c4}
+    th,td{border-bottom:1px solid #d8d0c4;padding:12px 14px;text-align:left;vertical-align:top}
+    th{background:#ebe3d6;font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+    code{background:#ebe3d6;padding:2px 6px;border-radius:4px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .card{background:#fffaf2;border:1px solid #d8d0c4;padding:20px}
+    .card h3{margin:0 0 8px}
+    a{color:#9a3e24;font-weight:800}
+    @media(max-width:900px){.grid{grid-template-columns:1fr}table{font-size:14px}.wrap{width:calc(100vw - 24px)}}
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <h1>Resume Site Design Tool Benchmark</h1>
+      <p>把同一个脱敏简历站 brief 丢给 Variant、Figma Make、v0、Lovable、Bolt、Relume 等工具，测试哪些能真正生成设计，哪些更适合作为参考库。</p>
+    </div>
+  </header>
+  <main class="wrap">
+    <img class="sheet" src="./design-tool-contact-sheet.png" alt="Design tool contact sheet">
+
+    <h2>结论</h2>
+    <div class="grid">
+      <section class="card"><h3>真正跑出结果</h3><p>Relume 可以未登录生成 sitemap 和 wireframe，但会编造项目、推荐语和人物信息，只能用结构，不能信内容。</p></section>
+      <section class="card"><h3>能输入但被登录挡住</h3><p>Variant、Figma Make、v0、Lovable、Bolt 都能进入 prompt 流程，但提交后需要登录或私有会话。</p></section>
+      <section class="card"><h3>最稳定的参考来源</h3><p>Godly、Land-book、Saaspo、Awwwards、Mobbin、Page Flows、Refero 更适合做视觉和流程参考。</p></section>
+    </div>
+
+    <h2>测试矩阵</h2>
+    <table>
+      <thead><tr><th>工具</th><th>类型</th><th>未登录生成</th><th>结果</th></tr></thead>
+      <tbody>
+        <tr><td>Variant</td><td>视觉探索</td><td>No</td><td>提交 prompt 后进入登录</td></tr>
+        <tr><td>Figma Make</td><td>AI web design</td><td>No</td><td>提交 prompt 后进入 Figma 登录</td></tr>
+        <tr><td>v0</td><td>AI app/code</td><td>Partial</td><td>生成私有 chat，但预览不可用</td></tr>
+        <tr><td>Lovable</td><td>AI app builder</td><td>No</td><td>提交后要求创建账号</td></tr>
+        <tr><td>Bolt</td><td>AI app builder</td><td>No</td><td>提交后要求登录</td></tr>
+        <tr><td>Relume</td><td>Sitemap/wireframe</td><td>Yes</td><td>生成 sitemap + wireframe</td></tr>
+        <tr><td>Uizard / Visily / Subframe</td><td>UI design tools</td><td>No</td><td>营销页可看，实际生成器需要登录</td></tr>
+        <tr><td>Mobbin / Refero / Page Flows / Land-book / Godly / Saaspo / Awwwards</td><td>参考库</td><td>N/A</td><td>适合作为设计参考，不是生成器</td></tr>
+      </tbody>
+    </table>
+
+    <h2>文件</h2>
+    <p>Codex 前端设计总手册：<a href="../codex-frontend-design-playbook/index.html">codex-frontend-design-playbook</a></p>
+    <p>详细报告：<a href="./report.md">report.md</a></p>
+    <p>生成内容整理：<a href="./generated-content.md">generated-content.md</a></p>
+    <p>脱敏 brief：<a href="./resume-site-brief.md">resume-site-brief.md</a></p>
+    <p>截图目录：<code>screenshots/</code></p>
+  </main>
+</body>
+</html>

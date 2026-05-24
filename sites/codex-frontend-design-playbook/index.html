@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>让 Codex 设计前端不丑</title>
+  <link rel="icon" href="data:,">
+  <style>
+    :root{
+      --bg:#f5f2ea;
+      --paper:#fffaf2;
+      --ink:#181512;
+      --muted:#625c52;
+      --line:#d8d0c4;
+      --accent:#a6402a;
+      --green:#1f6f67;
+      --dark:#181512;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:"Avenir Next","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.72}
+    a{color:var(--accent);font-weight:800}
+    .hero{background:var(--dark);color:#fff8ec;border-bottom:1px solid #000}
+    .wrap{width:min(1180px,calc(100vw - 40px));margin:0 auto}
+    .hero .wrap{padding:80px 0 60px}
+    .eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:#e6ad5b;font-weight:900;margin-bottom:18px}
+    h1{font-size:clamp(42px,7vw,90px);line-height:1;margin:0 0 22px;letter-spacing:0;max-width:1040px}
+    .lead{font-size:clamp(18px,2.2vw,24px);max-width:900px;color:#d8cbb8;margin:0}
+    main.wrap{padding:44px 0 90px}
+    h2{font-size:clamp(30px,4.2vw,52px);line-height:1.1;margin:72px 0 18px}
+    h3{font-size:24px;margin:28px 0 10px}
+    p{margin:13px 0;color:var(--ink)}
+    .muted{color:var(--muted)}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:22px 0}
+    .grid.two{grid-template-columns:repeat(2,1fr)}
+    .card{background:var(--paper);border:1px solid var(--line);padding:22px}
+    .card h3{margin-top:0}
+    .callout{border-left:6px solid var(--accent);background:linear-gradient(90deg,rgba(166,64,42,.1),transparent);padding:18px 20px;margin:24px 0}
+    figure{margin:28px 0;border:1px solid var(--line);background:#fff;padding:10px}
+    figure img{display:block;width:100%;height:auto}
+    .pair{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    table{width:100%;border-collapse:collapse;background:var(--paper);border:1px solid var(--line);margin:22px 0}
+    th,td{border-bottom:1px solid var(--line);padding:13px 15px;text-align:left;vertical-align:top;overflow-wrap:anywhere}
+    th{background:#ebe3d6;font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+    code{background:#ebe3d6;padding:2px 6px;border-radius:4px}
+    pre{background:#181512;color:#fff8ec;padding:18px;overflow:auto;border-radius:0}
+    .steps{counter-reset:step}
+    .step{display:grid;grid-template-columns:64px 1fr;gap:18px;border-top:1px solid var(--line);padding:20px 0}
+    .step:before{counter-increment:step;content:counter(step);width:48px;height:48px;background:var(--dark);color:#fff8ec;display:grid;place-items:center;font-weight:900}
+    .footer{margin-top:70px;padding-top:24px;border-top:1px solid var(--line);color:var(--muted)}
+    @media(max-width:900px){
+      .wrap{width:calc(100vw - 24px)}
+      .grid,.grid.two,.pair{grid-template-columns:1fr}
+      table{font-size:14px}
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Codex frontend design playbook</div>
+      <h1>让 Codex 设计前端不丑</h1>
+      <p class="lead">Skill 给原则，外部站点给参考，Codex 负责重开发。不要让模型凭空“做好看”，要让它先找类似站点、抽象设计语言、再按设计系统实现。</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="callout">
+      <p><strong>核心判断：</strong>Codex 不是不能做前端。Codex 不能在没有方向、没有参考、没有设计系统、没有截图验收的情况下稳定做好前端。</p>
+    </section>
+
+    <h2>六层问题</h2>
+    <table>
+      <thead><tr><th>层级</th><th>问题</th><th>工具/Skill</th><th>验收</th></tr></thead>
+      <tbody>
+        <tr><td>叙事层</td><td>页面到底表达什么</td><td><code>interactive-portfolio</code></td><td>30 秒内知道是谁、做什么、最强证明、如何联系</td></tr>
+        <tr><td>信息架构</td><td>有哪些模块，顺序是什么</td><td>Relume、<code>design-consultation</code></td><td>模块支持用户决策，不堆字段</td></tr>
+        <tr><td>视觉方向</td><td>看起来像哪类产品</td><td>Variant、Godly、Land-book、<code>design-shotgun</code></td><td>有明确视觉立场，不像通用模板</td></tr>
+        <tr><td>设计系统</td><td>如何复用</td><td><code>tailwind-design-system</code></td><td>token 和组件统一</td></tr>
+        <tr><td>布局工程</td><td>页面是否稳定</td><td><code>shadcn-layouts</code></td><td>桌面/移动端不崩，滚动正确</td></tr>
+        <tr><td>发布审查</td><td>是否可信、不过界</td><td><code>claude-page-review</code>、Playwright</td><td>不编造，不泄露，截图通过</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Skill 的内部原理</h2>
+    <figure><img src="./assets/skill-contact-sheet.png" alt="Skill variants contact sheet"></figure>
+    <div class="grid">
+      <article class="card"><h3>interactive-portfolio</h3><p>作品集不是简历网页化，而是机会转化。项目证明优先，核心是 30 秒测试。</p></article>
+      <article class="card"><h3>frontend-design</h3><p>先决定视觉立场，再写代码。字体、颜色、空间、动效服务同一个概念。</p></article>
+      <article class="card"><h3>design-taste-frontend</h3><p>用硬约束抵消 AI UI 偏差：紫蓝渐变、三列卡片、默认字体、卡片滥用。</p></article>
+      <article class="card"><h3>design-shotgun</h3><p>早期先扩大搜索空间，生成真正不同的方向，再收敛。</p></article>
+      <article class="card"><h3>tailwind-design-system</h3><p>把审美变成 token 和组件契约，让模板可复用。</p></article>
+      <article class="card"><h3>shadcn-layouts</h3><p>解决高度链、滚动容器、min-h-0、grid 父子关系这些真实布局问题。</p></article>
+    </div>
+
+    <h2>外部站点怎么用</h2>
+    <figure><img src="./assets/design-tool-contact-sheet.png" alt="Design tool benchmark contact sheet"></figure>
+    <div class="grid two">
+      <article class="card"><h3>AI 生成/探索工具</h3><p>Variant 适合视觉探索，Relume 适合 sitemap/wireframe，v0/Lovable/Bolt 适合登录后做代码或应用原型。它们不是生产依赖。</p></article>
+      <article class="card"><h3>参考库</h3><p>Godly、Land-book、Saaspo、Awwwards、Mobbin、Page Flows、Refero 更稳定，适合给 Codex 提供真实世界参考。</p></article>
+    </div>
+
+    <div class="pair">
+      <figure><img src="./assets/variant-home.png" alt="Variant screenshot"></figure>
+      <figure><img src="./assets/relume-generated-wireframe.png" alt="Relume generated wireframe"></figure>
+    </div>
+    <div class="pair">
+      <figure><img src="./assets/godly-home.png" alt="Godly reference library screenshot"></figure>
+      <figure><img src="./assets/land-book-home.png" alt="Land-book reference library screenshot"></figure>
+    </div>
+    <figure><img src="./assets/original-interactive-portfolio.png" alt="Interactive portfolio resume site screenshot"></figure>
+
+    <h2>Codex 先找类似站点，再重开发</h2>
+    <section class="steps">
+      <div class="step"><div><h3>明确页面类型</h3><p>候选人个人网站、SaaS landing page、报告页、dashboard、编辑器，不同页面不能套一个方法。</p></div></div>
+      <div class="step"><div><h3>找参考来源</h3><p>视觉方向用 Variant/Godly/Land-book/Awwwards，真实产品流程用 Mobbin/Page Flows/Refero。</p></div></div>
+      <div class="step"><div><h3>截图并归档</h3><p>保存桌面首屏、关键 section、移动端首屏。没有截图，就没有设计参考。</p></div></div>
+      <div class="step"><div><h3>抽象而不是复制</h3><p>抽象信息顺序、字体气质、色彩关系、留白密度、CTA 层级、移动端折叠方式。</p></div></div>
+      <div class="step"><div><h3>生成设计 brief</h3><p>把参考站点共性变成新页面规则，不说“照抄某站”，而说布局、层级、token、组件和禁用项。</p></div></div>
+      <div class="step"><div><h3>Codex 实现</h3><p>按 brief、设计 token、组件规则写代码，并只改真实源码入口。</p></div></div>
+      <div class="step"><div><h3>Playwright QA</h3><p>截图检查桌面和移动端：文本、CTA、图片、滚动、横向溢出、动效性能。</p></div></div>
+      <div class="step"><div><h3>发布审查</h3><p>检查文案、可信度、隐私、夸大、品牌一致性。</p></div></div>
+    </section>
+
+    <h2>Prompt 模板</h2>
+    <pre><code>先不要写代码。先搜索/打开 5 个高质量同类站点作为参考，保存截图，并分析：
+1. 首屏信息结构
+2. 导航和 CTA
+3. 字体气质
+4. 色彩系统
+5. section 顺序
+6. 卡片/列表/图像使用方式
+7. 移动端布局
+8. 哪些设计可以抽象，哪些不能复制
+
+最后输出新的设计 brief，再基于 brief 重新设计，不要直接抄任何站点。</code></pre>
+
+    <h2>Offer-Compass 推荐链路</h2>
+    <div class="grid">
+      <article class="card"><h3>1. 简历解析</h3><p>只抽事实，不生成设计。</p></article>
+      <article class="card"><h3>2. 叙事重组</h3><p>用 <code>interactive-portfolio</code> 排序候选人证明。</p></article>
+      <article class="card"><h3>3. 模板选择</h3><p>按产品/运营、研发/算法、金融/咨询、设计/内容、创业型候选人分模板。</p></article>
+      <article class="card"><h3>4. 参考绑定</h3><p>每个模板家族绑定 3-5 个参考截图和设计 brief。</p></article>
+      <article class="card"><h3>5. 设计系统</h3><p>token、组件、移动端规则固化。</p></article>
+      <article class="card"><h3>6. 发布审查</h3><p>截图 QA、隐私检查、反幻觉检查。</p></article>
+    </div>
+
+    <h2>质量检查</h2>
+    <table>
+      <thead><tr><th>阶段</th><th>检查项</th></tr></thead>
+      <tbody>
+        <tr><td>设计前</td><td>页面类型、用户、首屏目标、参考截图、不可复制边界是否明确。</td></tr>
+        <tr><td>设计中</td><td>是否先叙事再视觉，是否避免 AI 风，是否有 token 和移动端规则。</td></tr>
+        <tr><td>发布前</td><td>是否截图检查，是否无横向滚动，是否没有假指标/假推荐语/隐私泄露。</td></tr>
+      </tbody>
+    </table>
+
+    <h2>附录：可直接复用的内容</h2>
+    <p class="muted">这里放执行时最有价值、但不适合塞进正文的内容。后续让 Codex 做前端时，可以直接复制这些矩阵、模板和检查表。</p>
+
+    <h3>A0. Skill 下载/复制地址索引</h3>
+    <p>Codex Skill 通常就是一个包含 <code>SKILL.md</code> 的目录。外部用户安装前，可以先看 <a href="https://developers.openai.com/codex/skills">OpenAI Codex Skills 文档</a> 和 <a href="https://github.com/openai/skills">OpenAI Skills Catalog</a>。</p>
+    <table>
+      <thead><tr><th>Skill</th><th>公开来源/下载地址</th><th>推荐安装路径</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td><code>interactive-portfolio</code></td><td><a href="https://github.com/vibeforge1111/vibeship-spawner-skills/tree/main/maker/interactive-portfolio">VibeShip Spawner Skills</a></td><td><code>~/.agents/skills/interactive-portfolio/</code></td><td>适合简历站/作品集叙事</td></tr>
+        <tr><td><code>design-shotgun</code></td><td><a href="https://github.com/garrytan/gstack/tree/main/design-shotgun">gstack design-shotgun</a></td><td><code>~/.agents/skills/gstack/design-shotgun/</code></td><td>多方向视觉探索</td></tr>
+        <tr><td><code>design-consultation</code></td><td><a href="https://github.com/garrytan/gstack/tree/main/design-consultation">gstack design-consultation</a></td><td><code>~/.agents/skills/gstack/design-consultation/</code></td><td>设计系统和品牌方向</td></tr>
+        <tr><td><code>frontend-design</code></td><td>未确认公开仓库；可从自己的技能目录安装</td><td><code>~/.agents/skills/frontend-design/</code></td><td>高质量前端页面生成</td></tr>
+        <tr><td><code>design-taste-frontend</code></td><td>未确认公开仓库；可从自己的技能目录安装</td><td><code>~/.agents/skills/design-taste-frontend/</code></td><td>反 AI 味和审美校准</td></tr>
+        <tr><td><code>frontend-css-patterns</code></td><td>未确认公开仓库；可从自己的技能目录安装</td><td><code>~/.agents/skills/frontend-css-patterns/</code></td><td>CSS 视觉模式</td></tr>
+        <tr><td><code>tailwind-design-system</code></td><td>未确认公开仓库；可从自己的技能目录安装</td><td><code>~/.agents/skills/tailwind-design-system/</code></td><td>token 和组件系统</td></tr>
+        <tr><td><code>shadcn-layouts</code></td><td>未确认公开仓库；可从自己的技能目录安装</td><td><code>~/.agents/skills/shadcn-layouts/</code></td><td>shadcn/Tailwind 布局稳定性</td></tr>
+        <tr><td><code>landing-page-design</code></td><td><a href="https://raw.githubusercontent.com/inference-sh/skills/refs/heads/main/cli-install.md">inference.sh skills install</a></td><td><code>~/.agents/skills/landing-page-design/</code></td><td>Skill 内部标注依赖 inference.sh CLI</td></tr>
+        <tr><td><code>claude-page-review</code></td><td>未确认公开仓库；可从自己的技能目录安装</td><td><code>~/.codex/skills/claude-page-review/</code></td><td>Claude 二次页面审查</td></tr>
+        <tr><td><code>remote-codex-worker</code></td><td>未确认公开仓库；可从自己的技能目录安装</td><td><code>~/.codex/skills/remote-codex-worker/</code></td><td>把 Offer-Compass 任务交给 agent-remote</td></tr>
+      </tbody>
+    </table>
+    <pre><code># 复制某个 Skill 到对方 Codex 技能目录
+mkdir -p ~/.codex/skills
+cp -R /path/to/skill-folder ~/.codex/skills/&lt;skill-name&gt;
+
+# 或者复制到通用 agent 技能目录
+mkdir -p ~/.agents/skills
+cp -R /path/to/skill-folder ~/.agents/skills/&lt;skill-name&gt;</code></pre>
+
+    <h3>A1. 外部设计工具和参考站点地址</h3>
+    <table>
+      <thead><tr><th>名称</th><th>地址</th><th>类型</th><th>本文里的用途</th></tr></thead>
+      <tbody>
+        <tr><td>Variant</td><td><a href="https://variant.com/">variant.com</a></td><td>AI 视觉探索</td><td>找页面气质和视觉方向</td></tr>
+        <tr><td>Figma Make</td><td><a href="https://www.figma.com/make/">figma.com/make</a></td><td>AI 设计工具</td><td>在 Figma 生态内生成/调整页面</td></tr>
+        <tr><td>v0</td><td><a href="https://v0.app/">v0.app</a></td><td>AI app/code generator</td><td>登录后生成组件或应用原型</td></tr>
+        <tr><td>Lovable</td><td><a href="https://lovable.dev/">lovable.dev</a></td><td>AI app builder</td><td>快速生成应用原型</td></tr>
+        <tr><td>Bolt</td><td><a href="https://bolt.new/">bolt.new</a></td><td>AI app builder</td><td>快速生成前端项目</td></tr>
+        <tr><td>Relume</td><td><a href="https://www.relume.io/">relume.io</a></td><td>sitemap/wireframe</td><td>信息架构、页面结构、线框</td></tr>
+        <tr><td>Uizard</td><td><a href="https://uizard.io/">uizard.io</a></td><td>AI UI generator</td><td>UI mockup / wireframe</td></tr>
+        <tr><td>Visily</td><td><a href="https://www.visily.ai/">visily.ai</a></td><td>AI UI generator</td><td>UI mockup / screenshot to design</td></tr>
+        <tr><td>Subframe</td><td><a href="https://www.subframe.com/">subframe.com</a></td><td>code-first UI design</td><td>设计系统和后台 UI</td></tr>
+        <tr><td>Godly</td><td><a href="https://godly.website/">godly.website</a></td><td>高审美网站灵感</td><td>强视觉、反模板、作品集/AI 产品参考</td></tr>
+        <tr><td>Land-book</td><td><a href="https://land-book.com/">land-book.com</a></td><td>landing page 灵感</td><td>首屏、section、品牌页</td></tr>
+        <tr><td>Saaspo</td><td><a href="https://saaspo.com/">saaspo.com</a></td><td>SaaS 网站参考</td><td>产品页、功能页、报告页</td></tr>
+        <tr><td>Awwwards</td><td><a href="https://www.awwwards.com/">awwwards.com</a></td><td>创意网站奖项</td><td>高冲击、实验性视觉方向</td></tr>
+        <tr><td>Mobbin</td><td><a href="https://mobbin.com/">mobbin.com</a></td><td>真实产品 UI 截图</td><td>登录、上传、编辑、分享、dashboard</td></tr>
+        <tr><td>Page Flows</td><td><a href="https://pageflows.com/">pageflows.com</a></td><td>用户流程参考</td><td>onboarding、checkout、upload、search</td></tr>
+        <tr><td>Refero</td><td><a href="https://refero.design/">refero.design</a></td><td>Web/iOS UI 参考</td><td>页面模式和组件细节</td></tr>
+      </tbody>
+    </table>
+
+    <h3>A. Skill 选择矩阵</h3>
+    <table>
+      <thead><tr><th>页面目标</th><th>第一优先 Skill</th><th>搭配 Skill</th><th>关键产出</th></tr></thead>
+      <tbody>
+        <tr><td>简历生成个人网站</td><td><code>interactive-portfolio</code></td><td><code>tailwind-design-system</code>、<code>claude-page-review</code></td><td>候选人定位、项目证明排序、CTA、隐私处理</td></tr>
+        <tr><td>获客 landing page</td><td><code>landing-page-design</code></td><td><code>frontend-design</code>、<code>design-review</code></td><td>首屏价值、信任证据、转化路径</td></tr>
+        <tr><td>找视觉方向</td><td><code>design-shotgun</code></td><td><code>design-taste-frontend</code></td><td>3-5 个差异明显的方向，不在坏方向上微调</td></tr>
+        <tr><td>沉淀模板系统</td><td><code>design-consultation</code></td><td><code>tailwind-design-system</code>、<code>shadcn-layouts</code></td><td>模板家族、token、组件规则、响应式规则</td></tr>
+        <tr><td>发布前把关</td><td><code>claude-page-review</code></td><td>Playwright</td><td>首屏清晰度、真实性、隐私、移动端截图</td></tr>
+      </tbody>
+    </table>
+
+    <h3>B. 参考站点用途速查</h3>
+    <table>
+      <thead><tr><th>类型</th><th>站点</th><th>适合借鉴</th><th>不要做什么</th></tr></thead>
+      <tbody>
+        <tr><td>AI 视觉探索</td><td>Variant</td><td>页面气质、首屏风格、组件组合方向</td><td>不要直接当生产代码来源</td></tr>
+        <tr><td>信息架构</td><td>Relume</td><td>sitemap、wireframe、section 顺序</td><td>不要相信生成的人名、公司、指标</td></tr>
+        <tr><td>代码生成</td><td>v0、Lovable、Bolt</td><td>登录后快速生成 app 原型或组件</td><td>不要跳过源码审查和响应式 QA</td></tr>
+        <tr><td>高审美灵感</td><td>Godly、Awwwards</td><td>视觉语言、动效、排版张力</td><td>不要复制独特品牌资产</td></tr>
+        <tr><td>Landing 参考</td><td>Land-book、Saaspo</td><td>首屏、CTA、section、SaaS 叙事</td><td>不要把个人主页做成硬销售页</td></tr>
+        <tr><td>真实产品流程</td><td>Mobbin、Page Flows、Refero</td><td>上传、登录、编辑、分享、dashboard 流程</td><td>不要只看单屏，忽略完整用户路径</td></tr>
+      </tbody>
+    </table>
+
+    <h3>C. 截图研究表</h3>
+    <table>
+      <thead><tr><th>参考站点</th><th>截图路径</th><th>可抽象原则</th><th>不能复制</th><th>改造动作</th></tr></thead>
+      <tbody>
+        <tr><td>站点 A</td><td><code>assets/ref-a-hero.png</code></td><td>左对齐 hero、强标题、低饱和强调色</td><td>logo、品牌图、专属插画</td><td>用相同信息层级，不复刻资产</td></tr>
+        <tr><td>站点 B</td><td><code>assets/ref-b-mobile.png</code></td><td>移动端 CTA 全宽，首屏露出下一节</td><td>具体文案、客户 logo</td><td>改移动端结构和 CTA 位置</td></tr>
+        <tr><td>站点 C</td><td><code>assets/ref-c-section.png</code></td><td>项目用 case study，不用三列 feature card</td><td>项目图片和数据</td><td>把简历项目重写为问题-动作-结果</td></tr>
+      </tbody>
+    </table>
+
+    <h3>D. 设计 brief 模板</h3>
+    <pre><code>页面类型：
+目标用户：
+页面主目标：
+首屏必须回答：
+- 
+- 
+- 
+
+参考来源：
+- 参考 1：截图路径 / 可抽象原则
+- 参考 2：截图路径 / 可抽象原则
+- 参考 3：截图路径 / 可抽象原则
+
+信息架构：
+1. Hero：
+2. Proof：
+3. Case studies：
+4. Background：
+5. CTA：
+
+视觉语言：
+- 字体：
+- 主色：
+- 强调色：
+- 背景：
+- 图片/截图：
+- 动效：
+
+组件规则：
+- Button：
+- Card：
+- Tag：
+- Timeline：
+- Mobile：
+
+禁止项：
+- 不编造数据、客户、推荐语、学校、公司和奖项。
+- 不使用紫蓝渐变、默认三列卡片、过度圆角、过强阴影。
+- 不复制参考站点的 logo、插画、摄影、专属文案。</code></pre>
+
+    <h3>E. 反 AI 味检查表</h3>
+    <table>
+      <thead><tr><th>常见问题</th><th>判断方式</th><th>修正动作</th></tr></thead>
+      <tbody>
+        <tr><td>紫蓝渐变和发光背景</td><td>页面第一眼像通用 AI SaaS 模板</td><td>换成品牌色、真实图片、纸面/编辑/产品系统语言</td></tr>
+        <tr><td>三列卡片堆满页面</td><td>每个 section 都是 3 cards</td><td>改为 case study、列表、时间线、对比表、截图说明</td></tr>
+        <tr><td>文案空泛</td><td>“提升效率”“打造体验”“赋能未来”太多</td><td>换成具体对象、动作、证据、结果</td></tr>
+        <tr><td>页面没有真实资产</td><td>只有色块、图标、抽象背景</td><td>加入产品截图、作品截图、报告图、真实站点参考图</td></tr>
+        <tr><td>移动端只是缩小</td><td>表格溢出、按钮挤压、hero 太高</td><td>单列重排、CTA 全宽、长表横滚或拆卡片</td></tr>
+      </tbody>
+    </table>
+
+    <h3>F. Offer-Compass 简历站模板家族</h3>
+    <table>
+      <thead><tr><th>候选人类型</th><th>推荐结构</th><th>视觉方向</th><th>风险</th></tr></thead>
+      <tbody>
+        <tr><td>产品/运营</td><td>定位 + 项目 case + 增长证据 + 方法论</td><td>编辑感、产品档案、轻 dashboard</td><td>容易写成空泛产品话术</td></tr>
+        <tr><td>研发/算法</td><td>技术栈 + 项目架构 + 性能/指标 + GitHub/论文</td><td>技术档案、控制台、代码注释感</td><td>容易过技术风，HR 看不懂</td></tr>
+        <tr><td>数据分析</td><td>问题 + 数据方法 + 图表 + 决策影响</td><td>数据报告、insight dashboard</td><td>容易图表装饰化</td></tr>
+        <tr><td>金融/咨询</td><td>教育背景 + 案例拆解 + 行业理解 + 输出物</td><td>克制、高密度、研究报告感</td><td>容易过度保守没有记忆点</td></tr>
+        <tr><td>设计/内容</td><td>作品封面 + 过程 + 风格 + 传播结果</td><td>画廊、杂志、作品集</td><td>容易只好看，没有业务结果</td></tr>
+        <tr><td>创业/项目型</td><td>机会判断 + 从 0 到 1 + 真实用户/数据 + 迭代</td><td>founder memo、launch page</td><td>容易夸大，必须反幻觉</td></tr>
+      </tbody>
+    </table>
+
+    <h3>G. 一条完整的 Codex 指令</h3>
+    <pre><code>你现在要为 Offer-Compass 生成一个候选人个人网站。
+
+先不要写代码。按下面顺序执行：
+1. 用 interactive-portfolio 方法重组简历叙事，输出候选人定位、最强 3 个证明、隐私处理方案。
+2. 找 5 个同类高质量参考站点或参考库页面，保存桌面和移动端截图。
+3. 分析参考站点的信息架构、字体、颜色、CTA、section 顺序、移动端布局。
+4. 把参考抽象成新的 design brief，不复制任何站点资产。
+5. 选择模板家族，并定义 token、组件、响应式规则。
+6. 只修改真实源码入口，不改构建产物。
+7. 实现后用 Playwright 截桌面和移动端。
+8. 检查是否有假数据、隐私泄露、横向滚动、图片加载失败、CTA 不可点击。
+9. 最后给出文件路径、截图路径、验证结果和剩余风险。</code></pre>
+
+    <p class="footer">Markdown 版本：<a href="./README.md">README.md</a>。相关实测：<a href="../design-tool-benchmark/index.html">design-tool-benchmark</a>，Skill 原理：<a href="../skill-variants/frontend-design-skill-principles.html">frontend-design-skill-principles</a>。</p>
+  </main>
+</body>
+</html>
