@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>张明远 | 产品经理候选人</title>
+  <link rel="icon" href="data:,">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    :root {
+      --bg: #faf8f5;
+      --bg-warm: #f5f0e8;
+      --surface: #ffffff;
+      --surface-hover: #fdfcfa;
+      --ink: #1a1714;
+      --ink-secondary: #3d3832;
+      --muted: #8a8279;
+      --dim: #b5afa6;
+      --border: #e8e2d9;
+      --border-light: #f0ebe3;
+      --accent: #d97706;
+      --accent-light: #fef3c7;
+      --accent-deep: #b45309;
+      --teal: #0f766e;
+      --teal-light: #ccfbf1;
+      --rose: #be123c;
+      --rose-light: #ffe4e6;
+      --indigo: #4338ca;
+      --indigo-light: #e0e7ff;
+      --emerald: #059669;
+      --emerald-light: #d1fae5;
+      --sans: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      --serif: 'Crimson Pro', 'Noto Serif SC', 'Songti SC', Georgia, serif;
+      --mono: 'JetBrains Mono', 'SF Mono', monospace;
+      --shadow-sm: 0 1px 2px rgba(26,23,20,0.05);
+      --shadow-md: 0 4px 12px rgba(26,23,20,0.06), 0 1px 3px rgba(26,23,20,0.04);
+      --shadow-lg: 0 12px 32px rgba(26,23,20,0.08);
+      --radius: 8px;
+      --radius-lg: 16px;
+      --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 48px); }
+
+    /* ── Navigation ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(250, 248, 245, 0.88);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border-bottom: 1px solid var(--border-light);
+    }
+    nav .container {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 700; font-size: 15px; color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-brand .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent);
+      animation: pulse-dot 3s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.85); }
+    }
+    .nav-links { display: flex; gap: 8px; align-items: center; }
+    .nav-links a {
+      font-size: 13px; font-weight: 500; color: var(--muted);
+      text-decoration: none; padding: 6px 12px; border-radius: 6px;
+      transition: all var(--transition);
+    }
+    .nav-links a:hover { color: var(--ink); background: var(--border-light); }
+    .nav-back {
+      font-size: 13px; font-weight: 500; color: var(--accent-deep);
+      text-decoration: none; padding: 6px 14px; border-radius: 6px;
+      border: 1px solid var(--accent); transition: all var(--transition);
+    }
+    .nav-back:hover { background: var(--accent); color: white; }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      display: flex; align-items: center;
+      padding: 120px 0 80px;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -20%; right: -10%;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(217,119,6,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: -10%; left: -5%;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(15,118,110,0.06) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: clamp(40px, 6vw, 80px);
+      align-items: center;
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--mono); font-size: 12px; font-weight: 500;
+      color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 28px;
+      padding: 6px 14px;
+      background: var(--accent-light);
+      border-radius: 100px;
+    }
+    .hero-tag .badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent);
+    }
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(48px, 7.5vw, 88px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      max-width: 700px;
+      margin-bottom: 28px;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-subtitle {
+      font-size: clamp(18px, 2.2vw, 22px);
+      color: var(--ink-secondary);
+      max-width: 600px;
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 24px;
+      border-radius: var(--radius);
+      font-size: 15px; font-weight: 600;
+      text-decoration: none;
+      transition: all var(--transition);
+      cursor: pointer; border: none;
+    }
+    .btn-primary { background: var(--ink); color: var(--bg); }
+    .btn-primary:hover { background: #000; transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .btn-secondary { background: transparent; color: var(--ink); border: 1.5px solid var(--border); }
+    .btn-secondary:hover { border-color: var(--ink); background: var(--surface); }
+    .btn-accent { background: var(--accent); color: white; }
+    .btn-accent:hover { background: var(--accent-deep); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+
+    .hero-meta {
+      display: flex; gap: 40px; margin-top: 56px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border-light);
+    }
+    .hero-meta-item label {
+      display: block;
+      font-family: var(--mono); font-size: 11px;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--dim); margin-bottom: 4px;
+    }
+    .hero-meta-item span {
+      font-size: 15px; font-weight: 600; color: var(--ink);
+    }
+
+    /* ── Profile Card (Hero right) ── */
+    .profile-card {
+      width: 320px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      position: relative;
+    }
+    .profile-card-header {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
+      padding: 28px 24px;
+      color: white;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .avatar {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--serif);
+      font-size: 24px; font-weight: 700;
+      color: white;
+      border: 2px solid rgba(255,255,255,0.3);
+    }
+    .profile-card-header .name {
+      font-weight: 700; font-size: 18px; line-height: 1.3;
+    }
+    .profile-card-header .role {
+      font-size: 13px; opacity: 0.85; font-weight: 400;
+    }
+    .profile-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      border-bottom: 1px solid var(--border-light);
+    }
+    .stat-item {
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-item:not(:last-child) { border-right: 1px solid var(--border-light); }
+    .stat-item:nth-child(n+3) { border-top: 1px solid var(--border-light); }
+    .stat-value {
+      font-family: var(--serif);
+      font-size: 28px; font-weight: 700;
+      color: var(--ink);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-value.accent { color: var(--accent); }
+    .stat-value.teal { color: var(--teal); }
+    .stat-value.rose { color: var(--rose); }
+    .stat-label {
+      font-size: 12px; color: var(--muted);
+      line-height: 1.4;
+    }
+    .profile-footer {
+      padding: 16px 20px;
+      background: var(--bg-warm);
+      font-size: 13px; color: var(--muted);
+      text-align: center;
+    }
+
+    /* ── Sections ── */
+    section { padding: 80px 0; }
+    section + section { border-top: 1px solid var(--border-light); }
+
+    .section-header { margin-bottom: 48px; }
+    .section-tag {
+      font-family: var(--mono); font-size: 12px; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(32px, 4.5vw, 52px);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      max-width: 700px;
+    }
+    .section-desc {
+      font-size: 17px; color: var(--ink-secondary);
+      max-width: 600px;
+      margin-top: 14px; line-height: 1.7;
+    }
+
+    /* ── Strengths Grid ── */
+    .strengths-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .strength-card {
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .strength-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      transition: height var(--transition);
+    }
+    .strength-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--border);
+    }
+    .strength-card:hover::before { height: 4px; }
+    .strength-card.amber::before { background: var(--accent); }
+    .strength-card.teal::before { background: var(--teal); }
+    .strength-card.rose::before { background: var(--rose); }
+    .strength-card h3 {
+      font-size: 20px; font-weight: 700;
+      margin-bottom: 14px; line-height: 1.3;
+    }
+    .strength-card p {
+      font-size: 15px; color: var(--muted);
+      line-height: 1.7;
+    }
+    .strength-number {
+      position: absolute;
+      right: 20px; bottom: 14px;
+      font-family: var(--serif);
+      font-size: 72px; font-weight: 700;
+      color: var(--border-light);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    /* ── Projects / Cases ── */
+    .cases-section {
+      background: var(--ink);
+      color: var(--bg);
+      border-top: none !important;
+    }
+    .cases-section .section-tag { color: var(--accent); }
+    .cases-section .section-title { color: var(--bg); }
+    .cases-section .section-desc { color: rgba(250,248,245,0.65); }
+
+    .case-list { display: grid; gap: 20px; }
+
+    .case-card {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      border: 1px solid rgba(250,248,245,0.15);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: rgba(250,248,245,0.04);
+      transition: all var(--transition);
+    }
+    .case-card:hover {
+      border-color: rgba(250,248,245,0.25);
+      background: rgba(250,248,245,0.06);
+    }
+    .case-sidebar {
+      padding: 32px;
+      border-right: 1px solid rgba(250,248,245,0.12);
+      display: flex;
+      flex-direction: column;
+    }
+    .case-card:nth-child(1) .case-sidebar { background: linear-gradient(135deg, rgba(15,118,110,0.25) 0%, transparent 70%); }
+    .case-card:nth-child(2) .case-sidebar { background: linear-gradient(135deg, rgba(67,56,202,0.25) 0%, transparent 70%); }
+    .case-card:nth-child(3) .case-sidebar { background: linear-gradient(135deg, rgba(190,18,60,0.2) 0%, transparent 70%); }
+
+    .case-label {
+      display: inline-flex;
+      padding: 4px 10px;
+      border: 1px solid rgba(250,248,245,0.2);
+      border-radius: 4px;
+      font-family: var(--mono);
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 24px;
+      align-self: flex-start;
+    }
+    .case-sidebar h3 {
+      font-family: var(--serif);
+      font-size: 28px; font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+    .case-sidebar .case-period {
+      font-size: 14px; color: rgba(250,248,245,0.55);
+      margin-bottom: 20px;
+    }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+    .tag {
+      padding: 4px 10px;
+      border: 1px solid rgba(250,248,245,0.15);
+      border-radius: 4px;
+      font-size: 12px; font-weight: 500;
+      color: rgba(250,248,245,0.75);
+    }
+
+    .case-body {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .case-point {
+      padding: 28px;
+      border-right: 1px solid rgba(250,248,245,0.08);
+      border-bottom: 1px solid rgba(250,248,245,0.08);
+    }
+    .case-point:nth-child(2n) { border-right: none; }
+    .case-point:nth-last-child(-n+2) { border-bottom: none; }
+    .case-point-label {
+      font-family: var(--mono);
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .case-point p {
+      font-size: 15px;
+      color: rgba(250,248,245,0.75);
+      line-height: 1.7;
+    }
+
+    /* ── Experience Timeline ── */
+    .experience-list {
+      display: grid;
+      gap: 0;
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+    .exp-item {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 32px;
+      padding: 28px 32px;
+      border-bottom: 1px solid var(--border-light);
+      align-items: start;
+    }
+    .exp-item:last-child { border-bottom: none; }
+    .exp-meta h4 {
+      font-size: 16px; font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .exp-meta .exp-period {
+      font-size: 13px; color: var(--muted);
+    }
+    .exp-desc {
+      font-size: 15px; color: var(--ink-secondary);
+      line-height: 1.75;
+    }
+
+    /* ── Skills Grid ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border-light);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .skill-cell {
+      background: var(--surface);
+      padding: 28px 24px;
+      transition: all var(--transition);
+    }
+    .skill-cell:hover { background: var(--surface-hover); }
+    .skill-cell h4 {
+      font-size: 17px; font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .skill-cell p {
+      font-size: 14px; color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: linear-gradient(135deg, var(--teal) 0%, #0d5c56 100%);
+      color: white;
+      border-top: none !important;
+    }
+    .cta-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 48px;
+      align-items: center;
+    }
+    .cta-section h2 {
+      font-family: var(--serif);
+      font-size: clamp(28px, 3.5vw, 42px);
+      font-weight: 700;
+      line-height: 1.2;
+      max-width: 700px;
+      margin-bottom: 16px;
+    }
+    .cta-section p {
+      font-size: 17px;
+      color: rgba(255,255,255,0.75);
+      max-width: 560px;
+    }
+    .cta-section .btn { background: white; color: var(--teal); font-weight: 700; }
+    .cta-section .btn:hover { background: var(--bg); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+
+    /* ── Footer ── */
+    footer {
+      padding: 24px 0;
+      border-top: 1px solid var(--border-light);
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px; color: var(--dim);
+    }
+    .footer-inner a {
+      color: var(--accent-deep);
+      text-decoration: none;
+    }
+    .footer-inner a:hover { text-decoration: underline; }
+
+    /* ── Responsive ── */
+    @media (max-width: 980px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .profile-card { width: 100%; max-width: 400px; }
+      .strengths-grid { grid-template-columns: repeat(2, 1fr); }
+      .case-card { grid-template-columns: 1fr; }
+      .case-sidebar { border-right: none; border-bottom: 1px solid rgba(250,248,245,0.12); }
+      .case-body { grid-template-columns: 1fr; }
+      .case-point, .case-point:nth-child(2n) { border-right: none; }
+      .case-point:nth-last-child(-n+2) { border-bottom: 1px solid rgba(250,248,245,0.08); }
+      .case-point:last-child { border-bottom: none; }
+      .exp-item { grid-template-columns: 1fr; gap: 12px; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      .cta-inner { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .hero { padding-top: 100px; min-height: auto; }
+      .hero h1 { font-size: clamp(40px, 12vw, 56px); }
+      .hero-meta { flex-direction: column; gap: 16px; }
+      .nav-links { display: none; }
+      .strengths-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+      section { padding: 56px 0; }
+      .case-sidebar, .case-point { padding: 20px; }
+      .profile-stats { grid-template-columns: repeat(2, 1fr); }
+      .footer-inner { flex-direction: column; gap: 8px; text-align: center; }
+    }
+
+    /* ── Animations ── */
+    @media (prefers-reduced-motion: no-preference) {
+      .hero-content, .profile-card, .strength-card, .case-card,
+      .exp-item, .skill-cell {
+        animation: fadeUp 0.6s ease both;
+      }
+      .profile-card { animation-delay: 0.1s; }
+      .strength-card:nth-child(2) { animation-delay: 0.08s; }
+      .strength-card:nth-child(3) { animation-delay: 0.16s; }
+      .case-card:nth-child(2) { animation-delay: 0.1s; }
+      .case-card:nth-child(3) { animation-delay: 0.2s; }
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="container">
+      <a class="nav-brand" href="#">
+        <span class="dot"></span>
+        <span>ZM · Candidate Profile</span>
+      </a>
+      <div class="nav-links">
+        <a href="#strengths">核心能力</a>
+        <a href="#cases">项目证据</a>
+        <a href="#experience">经历</a>
+        <a href="#skills">能力栈</a>
+        <a class="nav-back" href="../index.html">← 返回主页</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <div class="hero-tag">
+          <span class="badge-dot"></span>
+          AI Product / Product Strategy / Growth
+        </div>
+        <h1>张明远<em>从需求洞察到产品交付。</em></h1>
+        <p class="hero-subtitle">
+          适合正在寻找 AI 产品、产品策略或增长实验实习的团队。
+          擅长判断机会密度，也能独立把 MVP 推到上线。
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#contact">了解更多</a>
+          <a class="btn btn-secondary" href="#cases">查看项目</a>
+        </div>
+        <div class="hero-meta">
+          <div class="hero-meta-item">
+            <label>Education</label>
+            <span>某重点大学 · 计算机 & 商业双学位</span>
+          </div>
+          <div class="hero-meta-item">
+            <label>Graduation</label>
+            <span>2027 年本科</span>
+          </div>
+          <div class="hero-meta-item">
+            <label>GPA</label>
+            <span>3.82 / 4.00</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="profile-card" aria-label="候选人速览">
+        <div class="profile-card-header">
+          <div class="avatar">张</div>
+          <div>
+            <div class="name">张明远</div>
+            <div class="role">AI 产品实习候选人</div>
+          </div>
+        </div>
+        <div class="profile-stats">
+          <div class="stat-item">
+            <div class="stat-value accent">3</div>
+            <div class="stat-label">独立产品上线</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value teal">5 天</div>
+            <div class="stat-label">最快交付周期</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value rose">3,200+</div>
+            <div class="stat-label">月活用户验证</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">3.82</div>
+            <div class="stat-label">GPA / 4.00</div>
+          </div>
+        </div>
+        <div class="profile-footer">
+          脱敏展示 · 联系方式请通过表单获取
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="strengths">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-tag" style="color: var(--accent);">Core strengths</p>
+        <h2 class="section-title">面试官不需要再帮他总结卖点。</h2>
+        <p class="section-desc">按招聘方判断路径组织：方向是否匹配、证据是否真实、项目是否说明产品能力、是否值得继续聊。</p>
+      </div>
+      <div class="strengths-grid">
+        <article class="strength-card amber">
+          <span class="strength-number">01</span>
+          <h3>AI 产品：能把开放问题收敛成可交互方案</h3>
+          <p>从"用户痛点"出发，拆成输入维度、推荐约束、筛选标签和结果展示，形成可落地的产品方案。</p>
+        </article>
+        <article class="strength-card teal">
+          <span class="strength-number">02</span>
+          <h3>产品运营：能把内容和用户行为转成复盘</h3>
+          <p>做过发布时间、内容类型、互动率、收藏和 UGC 的对比分析，用结果修正策略而不只是完成发布。</p>
+        </article>
+        <article class="strength-card rose">
+          <span class="strength-number">03</span>
+          <h3>增长实验：能用工具快速验证需求密度</h3>
+          <p>前端框架、BaaS、AI API 和地图检索都服务于同一件事——先把可用版本做出来。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="cases" class="cases-section">
+    <div class="container" style="padding: 80px clamp(20px, 4vw, 48px);">
+      <div class="section-header">
+        <p class="section-tag">Case files</p>
+        <h2 class="section-title">项目按证据强度展开，而非时间罗列。</h2>
+        <p class="section-desc">每个项目只保留决策需要的信息：用户问题、产品判断、落地动作和结果信号。</p>
+      </div>
+
+      <div class="case-list">
+        <article class="case-card">
+          <div class="case-sidebar">
+            <span class="case-label">Case 01</span>
+            <h3>智食 AI</h3>
+            <p class="case-period">AI 饮食推荐小程序 · 独立开发 · 2026.05 至今</p>
+            <div class="tag-list">
+              <span class="tag">AI 决策</span>
+              <span class="tag">云开发</span>
+              <span class="tag">地图服务</span>
+              <span class="tag">LLM API</span>
+            </div>
+          </div>
+          <div class="case-body">
+            <div class="case-point">
+              <div class="case-point-label">User Problem</div>
+              <p>外出就餐的痛点不是信息不足而是选择过载，用户需要的是决策辅助而非更多选项。</p>
+            </div>
+            <div class="case-point">
+              <div class="case-point-label">Product Call</div>
+              <p>把输入收敛为 4 个关键维度，规划 6 大推荐场景，结果以菜品、真实餐厅和情绪化文案呈现。</p>
+            </div>
+            <div class="case-point">
+              <div class="case-point-label">Execution</div>
+              <p>接入多个地图服务 API，通过 Prompt 约束 AI 只从真实店铺池选店，确保推荐可落地。</p>
+            </div>
+            <div class="case-point">
+              <div class="case-point-label">Signal</div>
+              <p>1 周完成产品设计、开发、安全加固与发布，8 个云函数模块支持多菜系和海外检索。</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="case-card">
+          <div class="case-sidebar">
+            <span class="case-label">Case 02</span>
+            <h3>GameHub</h3>
+            <p class="case-period">游戏工具平台 · 独立开发 · 2026.04 至今</p>
+            <div class="tag-list">
+              <span class="tag">Next.js</span>
+              <span class="tag">Supabase</span>
+              <span class="tag">UGC</span>
+              <span class="tag">多语言</span>
+            </div>
+          </div>
+          <div class="case-body">
+            <div class="case-point">
+              <div class="case-point-label">User Problem</div>
+              <p>跨服玩家缺少可检索、可分享的专业工具，分散在社区的经验难以结构化复用。</p>
+            </div>
+            <div class="case-point">
+              <div class="case-point-label">Product Call</div>
+              <p>设计分级体系、多维标签和组合筛选，把分散经验变成结构化工具。</p>
+            </div>
+            <div class="case-point">
+              <div class="case-point-label">Execution</div>
+              <p>实现双登录、UGC 上传、三语切换；CDN 管理 60+ 资源图片，SEO 全自动生成。</p>
+            </div>
+            <div class="case-point">
+              <div class="case-point-label">Signal</div>
+              <p>5 天上线双端，性能评分满分；首月 2,800+ 独立访客、3,500+ 浏览、200+ UGC。</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="case-card">
+          <div class="case-sidebar">
+            <span class="case-label">Case 03</span>
+            <h3>EthiScore</h3>
+            <p class="case-period">企业伦理评分应用 · 团队成员 · 2025.09 - 2025.12</p>
+            <div class="tag-list">
+              <span class="tag">ESG</span>
+              <span class="tag">评分模型</span>
+              <span class="tag">商业模式</span>
+              <span class="tag">Figma</span>
+            </div>
+          </div>
+          <div class="case-body">
+            <div class="case-point">
+              <div class="case-point-label">User Problem</div>
+              <p>消费者和投资者很难快速判断企业伦理表现，缺乏可解释、可比较的评分工具。</p>
+            </div>
+            <div class="case-point">
+              <div class="case-point-label">Product Call</div>
+              <p>补充 20+ 评估指标，将四大维度落实为可操作的评分框架。</p>
+            </div>
+            <div class="case-point">
+              <div class="case-point-label">Execution</div>
+              <p>完成用户细分、订阅定价和商业模式画布，梳理三款竞品确定差异化定位。</p>
+            </div>
+            <div class="case-point">
+              <div class="case-point-label">Signal</div>
+              <p>搭建 4 页 Demo，接入后端和 AI API，以真实企业数据完成评分验证。</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-tag" style="color: var(--teal);">Background</p>
+        <h2 class="section-title">经历只作为能力证据的补强。</h2>
+        <p class="section-desc">不追求履历堆叠，而是解释为什么适合做产品、运营和增长。</p>
+      </div>
+      <div class="experience-list">
+        <article class="exp-item">
+          <div class="exp-meta">
+            <h4>某头部券商</h4>
+            <span class="exp-period">营业部实习生 · 2025.07 - 2025.08</span>
+          </div>
+          <p class="exp-desc">拆解 15 款金融产品的收益、申赎和风险因素；从收益率、流动性、门槛维度对比竞品，帮助顾问讲清产品差异。</p>
+        </article>
+        <article class="exp-item">
+          <div class="exp-meta">
+            <h4>某互联网旅游公司</h4>
+            <span class="exp-period">市场运营实习生 · 2022.07 - 2022.08</span>
+          </div>
+          <p class="exp-desc">对比内容类型和发布时间的互动表现，调整标题、封面和发布节奏；完成 90+ 篇图文和短视频文案并形成运营复盘。</p>
+        </article>
+        <article class="exp-item">
+          <div class="exp-meta">
+            <h4>某重点大学</h4>
+            <span class="exp-period">计算机 & 商业双学位 · 2023.09 - 2027.05</span>
+          </div>
+          <p class="exp-desc">GPA 3.82 / 4.00；院长名单 3 次；主修课程覆盖创业管理、战略管理、数据结构与算法。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-tag" style="color: var(--indigo);">Operating Stack</p>
+        <h2 class="section-title">能力栈按交付路径组织，而非工具名称堆砌。</h2>
+        <p class="section-desc">如果进团队，他可以在哪些环节直接开始贡献。</p>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-cell">
+          <h4>发现问题</h4>
+          <p>用户细分、需求密度判断、竞品拆解、内容互动数据复盘。</p>
+        </div>
+        <div class="skill-cell">
+          <h4>定义产品</h4>
+          <p>信息架构、输入约束、评分模型、商业模式画布、Figma 原型。</p>
+        </div>
+        <div class="skill-cell">
+          <h4>做出版本</h4>
+          <p>Next.js、Supabase、云开发、地图服务、AI API 接入。</p>
+        </div>
+        <div class="skill-cell">
+          <h4>推动增长</h4>
+          <p>社媒内容运营、UGC 机制、访问量复盘、中英双语表达。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section" id="contact">
+    <div class="container">
+      <div class="cta-inner">
+        <div>
+          <h2>如果团队需要一个能从 0 到 1 推进 AI 产品原型的人，可以先聊 20 分钟。</h2>
+          <p>公开页面不暴露联系方式；后续可通过表单获取可控联系入口。</p>
+        </div>
+        <a class="btn" href="#">联系候选人</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <span>Designed by Claude · 基于前端设计原则体系</span>
+        <span><a href="../index.html">← 返回对比主页</a></span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
